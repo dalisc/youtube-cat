@@ -1,0 +1,9 @@
+{
+    "name": "YouTube Cat",
+    "version": "1.0",
+    "description": "Category blocker/filter for YouTube",
+    "background": {
+        "scripts": [ "background.js" ]
+    },
+    "manifest_version": 2
+}
