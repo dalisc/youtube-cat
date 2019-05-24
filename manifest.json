@@ -1,24 +1,30 @@
 {
     "name": "YouTube Cat",
     "version": "1.0",
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
     "description": "Category blocker/filter for YouTube",
     "background": {
         "scripts": [ "scripts/background.js" ]
     },
     "browser_action": {
         "default_icon": "icons/icon16.png",
-        "default_popup": "scripts/popup.html"
+        "default_popup": "html/popup.html"
     },
     "content_scripts": [
         {
-            "css": [ "style/styles.css" ],
+            "css": [ "style/style.css" ],
             "js": [ "scripts/content.js" ],
-            "matches": ["https://youtube.com/*"]
-
+            "matches": [ "https://youtube.com/*" ],
+            "run_at": "document_start"
         }
-    ]
+    ],
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "https://youtube.com/*"
     ],
     "manifest_version": 2
 }
