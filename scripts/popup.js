@@ -20,7 +20,7 @@ function restoreOptions() {
     localStorage.getItem("blockedCategories")
   );
   console.log(blockedCategories);
-  if (undefined !== blockedCategories) {
+  if (null !== blockedCategories) {
     const elements = document.getElementsByClassName("enableKey");
     console.log(blockedCategories[0]);
     for (let i = 0; i < blockedCategories.length; i++) {
@@ -29,6 +29,20 @@ function restoreOptions() {
     console.log("Restoring success!");
   }
 }
+
+selectAll = () => {
+  const elements = document.getElementsByClassName("enableKey");
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].checked = true;
+  }
+};
+
+unSelectAll = () => {
+  const elements = document.getElementsByClassName("enableKey");
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].checked = false;
+  }
+};
 
 toBool = str => {
   if ("false" === str) return false;
@@ -42,4 +56,11 @@ document.addEventListener("DOMContentLoaded", function() {
   document
     .getElementById("savePreferences")
     .addEventListener("click", saveOptions);
+  document.getElementById("selectAll").addEventListener("change", function() {
+    if (this.checked) {
+      selectAll();
+    } else {
+      unSelectAll();
+    }
+  });
 });
