@@ -2,7 +2,7 @@
 <html style="min-width:200px;">
 <head>
     <title>Blocked categories:</title>
-    <script src="popup.js"></script>
+    <script src="../scripts/popup.js"></script>
     <style>
         ul {
             list-style-type: none;
@@ -12,34 +12,35 @@
         }
     </style>
 </head>
-<body>
+<body id="popupBody">
     <h1>Blocked categories:</h1>
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="checkbox-group">
                     <ul style="list-style: none;">
-                        <li><input type="checkbox" onClick="toggle(this)" />&nbsp;Select all</a></li>
+                        <li><input type="checkbox" value="0" onClick="toggle(this)" />&nbsp;Select all</a></li>
                         <br>
-                        <li><input type="checkbox" name="cat" value="1" />&nbsp;Auto & Vehicles</a></li>
-                        <li><input type="checkbox" name="cat" value="2" />&nbsp;Beauty & Fashion</a></li>
-                        <li><input type="checkbox" name="cat" value="3" />&nbsp;Comedy</a></li>
-                        <li><input type="checkbox" name="cat" value="4" />&nbsp;Education</a></li>
-                        <li><input type="checkbox" name="cat" value="5" />&nbsp;Entertainment</a></li>
-                        <li><input type="checkbox" name="cat" value="6" />&nbsp;Family Entertainment</a></li>
-                        <li><input type="checkbox" name="cat" value="7" />&nbsp;Film & Animation</a></li>
-                        <li><input type="checkbox" name="cat" value="8" />&nbsp;Food</a></li>
-                        <li><input type="checkbox" name="cat" value="9" />&nbsp;Gaming</a></li>
-                        <li><input type="checkbox" name="cat" value="10" />&nbsp;How-to & Style</a></li>
-                        <li><input type="checkbox" name="cat" value="11" />&nbsp;Music</a></li>
-                        <li><input type="checkbox" name="cat" value="12" />&nbsp;News & Politics</a></li>
-                        <li><input type="checkbox" name="cat" value="13" />&nbsp;Nonprofits &A Activism</a></li>
-                        <li><input type="checkbox" name="cat" value="14" />&nbsp;People & Blogs</a></li>
-                        <li><input type="checkbox" name="cat" value="15" />&nbsp;Pets & Animals</a></li>
-                        <li><input type="checkbox" name="cat" value="16" />&nbsp;Science & Technology</a></li>
-                        <li><input type="checkbox" name="cat" value="17" />&nbsp;Sports</a></li>
-                        <li><input type="checkbox" name="cat" value="18" />&nbsp;Travel & Events</a></li>
+                        <li><input type="checkbox" name="cat" value="1" class="enableKey"/>&nbsp;Auto & Vehicles</a></li>
+                        <li><input type="checkbox" name="cat" value="2" class="enableKey"/>&nbsp;Beauty & Fashion</a></li>
+                        <li><input type="checkbox" name="cat" value="3" class="enableKey"/>&nbsp;Comedy</a></li>
+                        <li><input type="checkbox" name="cat" value="4" class="enableKey"/>&nbsp;Education</a></li>
+                        <li><input type="checkbox" name="cat" value="5" class="enableKey"/>&nbsp;Entertainment</a></li>
+                        <li><input type="checkbox" name="cat" value="6" class="enableKey"/>&nbsp;Family Entertainment</a></li>
+                        <li><input type="checkbox" name="cat" value="7" class="enableKey"/>&nbsp;Film & Animation</a></li>
+                        <li><input type="checkbox" name="cat" value="8" class="enableKey"/>&nbsp;Food</a></li>
+                        <li><input type="checkbox" name="cat" value="9" class="enableKey"/>&nbsp;Gaming</a></li>
+                        <li><input type="checkbox" name="cat" value="10" class="enableKey"/>&nbsp;How-to & Style</a></li>
+                        <li><input type="checkbox" name="cat" value="11" class="enableKey"/>&nbsp;Music</a></li>
+                        <li><input type="checkbox" name="cat" value="12" class="enableKey"/>&nbsp;News & Politics</a></li>
+                        <li><input type="checkbox" name="cat" value="13" class="enableKey"/>&nbsp;Nonprofits &A Activism</a></li>
+                        <li><input type="checkbox" name="cat" value="14" class="enableKey"/>&nbsp;People & Blogs</a></li>
+                        <li><input type="checkbox" name="cat" value="15" class="enableKey"/>&nbsp;Pets & Animals</a></li>
+                        <li><input type="checkbox" name="cat" value="16" class="enableKey"/>&nbsp;Science & Technology</a></li>
+                        <li><input type="checkbox" name="cat" value="17" class="enableKey"/>&nbsp;Sports</a></li>
+                        <li><input type="checkbox" name="cat" value="18" class="enableKey"/>&nbsp;Travel & Events</a></li>
                     </ul>
+                    <button id="savePreferences">Let the blocking begin!</button>
                 </div>
             </div>
         </div>
