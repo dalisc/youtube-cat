@@ -8,7 +8,8 @@
   },
   "description": "Category blocker/filter for YouTube",
   "background": {
-    "scripts": ["scripts/background.js"]
+    "scripts": ["scripts/background.js"],
+    "persistent": false
   },
   "browser_action": {
     "default_icon": "icons/icon16.png",
@@ -17,12 +18,11 @@
   },
   "content_scripts": [
     {
-      "css": ["style/style.css"],
+      "matches": ["https://www.youtube.com/*"],
       "js": ["scripts/content.js"],
-      "matches": ["https://youtube.com/*"],
-      "run_at": "document_start"
+      "css": ["style/style.css"]
     }
   ],
-  "permissions": ["activeTab", "https://youtube.com/*"],
+  "permissions": ["activeTab", "tabs", "https://www.youtube.com/*"],
   "manifest_version": 2
 }
