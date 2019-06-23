@@ -3,6 +3,7 @@ import { Input, Button } from "reactstrap";
 import { FirebaseContext } from "./firebase";
 
 const INITIAL_STATE = {
+  username: "",
   email: "",
   password: "",
   retypePassword: "",
@@ -24,9 +25,19 @@ class SignUp extends Component {
 
   onSubmit = (firebase, event) => {
     console.log(firebase);
-    const { email, password } = this.state;
+    const { email, password, username } = this.state;
+
     firebase.firebase
       .doCreateUserWithEmailAndPassword(email, password)
+      .then(authUser => {
+        return firebase.firebase.user(authUser.user.uid).set(
+          {
+            username,
+            email
+          },
+          { merge: true }
+        );
+      })
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
         this.props.changePage("LogIn");
@@ -39,14 +50,21 @@ class SignUp extends Component {
   };
 
   render() {
-    const { email, password, retypePassword, error } = this.state;
-    const isInvalid = password === "" || password !== retypePassword;
+    const { username, email, password, retypePassword, error } = this.state;
+    const isInvalid =
+      password === "" || password !== retypePassword || username === "";
 
     return (
       <FirebaseContext.Consumer>
         {firebase => (
           <div className="container">
             <h1>Sign Up:</h1>
+            <Input
+              placeholder="Username"
+              name="username"
+              onChange={this.handleOnChange}
+              value={username}
+            />
             <Input
               placeholder="Email"
               name="email"

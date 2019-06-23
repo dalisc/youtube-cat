@@ -11,6 +11,10 @@ body {
   color: blue;
 }
 
+.backButton {
+  cursor: pointer;
+}
+
 .flexing {
   display: flex;
 }

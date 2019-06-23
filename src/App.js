@@ -43,7 +43,13 @@ class App extends Component {
     ) {
       return <div />;
     } else {
-      return <FontAwesomeIcon icon={["fas", "arrow-left"]} size="lg" />;
+      return (
+        <FontAwesomeIcon
+          className="backButton"
+          icon={["fas", "arrow-left"]}
+          size="lg"
+        />
+      );
     }
   };
 

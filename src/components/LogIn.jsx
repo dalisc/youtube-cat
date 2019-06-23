@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Input, Button } from "reactstrap";
 import { FirebaseContext } from "./firebase";
+import SignInGoogle from "./SignInGoogle";
 
 const INITIAL_STATE = {
   email: "",
@@ -72,7 +73,13 @@ class LogIn extends Component {
             >
               Sign In
             </Button>
-            {error && <p>{error.message}</p>} <br />
+            {error && <p>{error.message}</p>}
+            <SignInGoogle
+              changePage={this.props.changePage}
+              changeAuth={this.props.changeAuth}
+              firebase={firebase}
+            />
+            <br />
             <span
               className="linking"
               onClick={() => this.props.changePage("ForgotPassword")}
