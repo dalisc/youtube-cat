@@ -1,3 +1,24 @@
 .blockedcategories {
   list-style: none;
 }
+
+body {
+  min-width: 300px;
+}
+
+.linking {
+  cursor: pointer;
+  color: blue;
+}
+
+.flexing {
+  display: flex;
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.flex2 {
+  flex: 15;
+}
