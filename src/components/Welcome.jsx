@@ -9,13 +9,14 @@ class Welcome extends Component {
     firebase.doSignOut().then(signout => {
       console.log("signout");
       firebase.auth.onAuthStateChanged(authUser => {
-        this.props.changeAuth(authUser);
+        this.props.changeAuth("null");
         this.props.changePage("LogIn");
       });
     });
   };
 
   render() {
+    console.log("local storage: ", this.props.authUser);
     return (
       <FirebaseContext.Consumer>
         {firebase => (

@@ -31,13 +31,19 @@ class LogIn extends Component {
         console.log("logged in");
         this.setState({ ...INITIAL_STATE });
 
-        firebase.firebase.auth.onAuthStateChanged(authUser => {
-          this.props.changeAuth(authUser);
-          this.props.changePage("Welcome");
-        });
+        firebase.firebase.auth
+          .onAuthStateChanged(authUser => {
+            console.log("going to welcome");
+            this.props.changeAuth(authUser);
+            this.props.changePage("Welcome");
+          })
+          .catch(error => {
+            console.log("inner errors: ", error);
+          });
       })
       .catch(error => {
         this.setState({ error });
+        console.log("errores: ", this.state.error);
       });
 
     event.preventDefault();
