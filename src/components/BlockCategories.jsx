@@ -1,31 +1,40 @@
 /*global chrome*/
 import React, { Component } from "react";
+import { FirebaseContext } from "./firebase";
 
 class BlockCategories extends Component {
   state = {
-    selectAllChecked: true
+    selectAllChecked: true,
+    blockedCategories: null
   };
 
-  componentDidMount() {
-    const blockedCategories = JSON.parse(
-      localStorage.getItem("blockedCategories")
-    );
+  async componentDidMount() {
+    const blockedCategories = await this.props.firebase
+      .user(this.props.authUser.uid)
+      .onSnapshot(snapshot => {
+        this.setState({ blockedCategories: snapshot.data() }, () => {
+          const { blockedCategories } = this.state;
 
-    console.log("Blocked Categories: ", blockedCategories);
+          if (null !== blockedCategories && undefined !== blockedCategories) {
+            if (undefined !== blockedCategories.blockedCategories) {
+              const elements = document.getElementsByClassName("enableKey");
+              const getCategories = blockedCategories.blockedCategories;
+              console.log(
+                "blocked cats: ",
+                blockedCategories.blockedCategories
+              );
 
-    if (null !== blockedCategories) {
-      const elements = document.getElementsByClassName("enableKey");
-
-      console.log("blocked cats: ", blockedCategories);
-
-      for (let i = 0; i < blockedCategories.length; i++) {
-        console.log("element:", blockedCategories[i]);
-        elements[blockedCategories[i]].checked = true;
-      }
-    }
+              for (let i = 0; i < getCategories.length; i++) {
+                console.log("element:", getCategories[i]);
+                elements[getCategories[i]].checked = true;
+              }
+            }
+          }
+        });
+      });
   }
 
-  handleSavePreferences = () => {
+  handleSavePreferences = firebase => {
     const elements = document.getElementsByClassName("enableKey");
     let checkedItems = [];
     const catArray = [];
@@ -36,20 +45,26 @@ class BlockCategories extends Component {
       }
     }
 
-    chrome.tabs.query(
-      {
-        active: true,
-        currentWindow: true
-      },
-      function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {
-          todo: "changePreferences",
-          categories: catArray
-        });
-      }
-    );
+    // chrome.tabs.query(
+    //   {
+    //     active: true,
+    //     currentWindow: true
+    //   },
+    //   function(tabs) {
+    //     chrome.tabs.sendMessage(tabs[0].id, {
+    //       todo: "changePreferences",
+    //       categories: catArray
+    //     });
+    //   }
+    // );
 
     localStorage.setItem("blockedCategories", JSON.stringify(checkedItems));
+    firebase.user(this.props.authUser.uid).set(
+      {
+        blockedCategories: checkedItems
+      },
+      { merge: true }
+    );
     console.log(checkedItems);
   };
 
@@ -73,6 +88,10 @@ class BlockCategories extends Component {
 
   render() {
     return (
+      // <FirebaseContext.Consumer>
+      //   {firebase => {
+      //     this.getBlockedCategories(firebase);
+      // return (
       <div className="container">
         <h1>Blocked categories:</h1>
         <div className="row">
@@ -251,13 +270,19 @@ class BlockCategories extends Component {
                 Travel & Events
               </li>
             </ul>
-            <button id="savePreferences" onClick={this.handleSavePreferences}>
+            <button
+              id="savePreferences"
+              onClick={() => this.handleSavePreferences(this.props.firebase)}
+            >
               Let the blocking begin!
             </button>
           </div>
         </div>
       </div>
     );
+    //   }}
+    // </FirebaseContext.Consumer>
+    // );
   }
 }
 

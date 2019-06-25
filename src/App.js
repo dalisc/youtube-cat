@@ -6,11 +6,15 @@ import BlockedCategories from "./components/BlockCategories";
 import ForgotPassword from "./components/ForgotPassword";
 import Welcome from "./components/Welcome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FirebaseContext } from "./components/firebase";
 
 class App extends Component {
   state = {
     page: "",
-    authUser: localStorage.getItem("authUser")
+    authUser:
+      localStorage.getItem("authUser") !== "null"
+        ? JSON.parse(localStorage.getItem("authUser"))
+        : localStorage.getItem("authUser") !== "null"
   };
 
   handlePages = pageTitle => {
@@ -23,7 +27,11 @@ class App extends Component {
     this.setState({
       authUser: user
     });
-    localStorage.setItem("authUser", user);
+    if (user !== "null") {
+      localStorage.setItem("authUser", JSON.stringify(user));
+    } else {
+      localStorage.setItem("authUser", user);
+    }
   };
 
   handleBack = () => {
@@ -76,10 +84,24 @@ class App extends Component {
           />
         );
       case "BlockedCategories":
-        return <BlockedCategories changePage={this.handlePages} />;
+        return (
+          <FirebaseContext.Consumer>
+            {firebase => (
+              <BlockedCategories
+                changePage={this.handlePages}
+                authUser={this.state.authUser}
+                firebase={firebase}
+              />
+            )}
+          </FirebaseContext.Consumer>
+        );
 
       default:
-        if (this.state.authUser !== "null") {
+        if (
+          this.state.authUser !== "null" &&
+          this.state.authUser !== null &&
+          this.state.authUser !== false
+        ) {
           return (
             <Welcome
               changePage={this.handlePages}
