@@ -57,18 +57,18 @@ function blockVideo() {
       setTimeout(timeoutVidSrc(vid[i]), 1000);
     }
 
-    // setTimeout(function() {
-    //   var vid = document.getElementsByTagName("video");
+    setTimeout(function() {
+      var vid = document.getElementsByTagName("video");
 
-    //   console.log("first timeout function");
+      console.log("first timeout function");
 
-    //   if (vid.length > 0) {
-    //     for (var i = 0, l = vid.length; i < l; i++) {
-    //       console.log(vid[i].src);
-    //       vid[i].src = "";
-    //       console.log(vid[i].src);
-    //     }
-    //   }
-    // }, 5000);
+      if (vid.length > 0) {
+        for (var i = 0, l = vid.length; i < l; i++) {
+          console.log(vid[i].src);
+          vid[i].src = "";
+          console.log(vid[i].src);
+        }
+      }
+    }, 5000);
   }
 }
