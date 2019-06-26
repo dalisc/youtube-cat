@@ -43,7 +43,7 @@ class LogIn extends Component {
       })
       .catch(error => {
         this.setState({ error });
-        console.log("errores: ", this.state.error);
+        console.log("errors: ", this.state.error);
       });
 
     event.preventDefault();

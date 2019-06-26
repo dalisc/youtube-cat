@@ -18,12 +18,23 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://www.youtube.com/*"],
-      "js": ["scripts/content.js"]
-      // "css": ["style/style.css"]
+      "matches": ["https://*/*"],
+      "js": ["scripts/content.js"],
+      "run_at": "document_end"
     }
   ],
-  "permissions": ["activeTab", "tabs", "https://www.youtube.com/*", "identity"],
+  "permissions": [
+    "activeTab",
+    "declarativeContent",
+    "webNavigation",
+    "tabs",
+    // "https://www.youtube.com/*",
+    "https://*/*",
+    "identity"
+  ],
+
+  "web_accessible_resources": ["/oauth2/*"],
+
   "manifest_version": 2,
-  "content_security_policy": "script-src 'self' 'sha256-5As4+3YpY62+l38PsxCEkjB1R4YtyktBtRScTJ3fyLU='; object-src 'self'"
+  "content_security_policy": "script-src 'self' 'sha256-5As4+3YpY62+l38PsxCEkjB1R4YtyktBtRScTJ3fyLU='; object-src 'self' https://*.youtube.com/* https://www.googleapis.com/youtube/v3/*"
 }

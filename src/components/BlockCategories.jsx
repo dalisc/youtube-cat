@@ -45,18 +45,19 @@ class BlockCategories extends Component {
       }
     }
 
-    // chrome.tabs.query(
-    //   {
-    //     active: true,
-    //     currentWindow: true
-    //   },
-    //   function(tabs) {
-    //     chrome.tabs.sendMessage(tabs[0].id, {
-    //       todo: "changePreferences",
-    //       categories: catArray
-    //     });
-    //   }
-    // );
+    chrome.tabs.query(
+      {
+        active: true,
+        currentWindow: true
+      },
+      function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {
+          todo: "changePreferences",
+          categories: catArray
+        });
+        console.log("sending message about cats");
+      }
+    );
 
     localStorage.setItem("blockedCategories", JSON.stringify(checkedItems));
     firebase.user(this.props.authUser.uid).set(
