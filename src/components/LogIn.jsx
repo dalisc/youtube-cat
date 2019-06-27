@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Input, Button } from "reactstrap";
 import { FirebaseContext } from "./firebase";
-import SignInGoogle from "./SignInGoogle";
+
 
 const INITIAL_STATE = {
   email: "",
@@ -57,14 +57,16 @@ class LogIn extends Component {
       <FirebaseContext.Consumer>
         {firebase => (
           <div className="container">
-            <h1>Sign In</h1>
+            <h1 className="toptext">Sign In</h1>
             <Input
+              className="signin-input"
               placeholder="Email"
               name="email"
               onChange={this.handleOnChange}
               value={email}
             />
             <Input
+              className="signin-input"
               placeholder="Password"
               name="password"
               type="password"
@@ -72,6 +74,7 @@ class LogIn extends Component {
               value={password}
             />
             <Button
+              className="signin"
               disabled={isInvalid}
               color="primary"
               type="submit"
@@ -80,12 +83,8 @@ class LogIn extends Component {
               Sign In
             </Button>
             {error && <p>{error.message}</p>}
-            <SignInGoogle
-              changePage={this.props.changePage}
-              changeAuth={this.props.changeAuth}
-              firebase={firebase}
-            />
-            <br />
+
+            
             <span
               className="linking"
               onClick={() => this.props.changePage("ForgotPassword")}
@@ -93,7 +92,9 @@ class LogIn extends Component {
               Forgot Password?
             </span>
             <br />
+            <br />
             Don't have an account?{" "}
+            <br/>
             <span
               className="linking"
               onClick={() => this.props.changePage("SignUp")}

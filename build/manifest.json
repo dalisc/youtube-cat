@@ -18,7 +18,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://*/*"],
+      "matches": ["https://www.youtube.com/*"],
       "js": ["scripts/content.js"],
       "run_at": "document_end"
     }
@@ -28,8 +28,7 @@
     "declarativeContent",
     "webNavigation",
     "tabs",
-    // "https://www.youtube.com/*",
-    "https://*/*",
+    "https://www.youtube.com/*",
     "identity"
   ],
 

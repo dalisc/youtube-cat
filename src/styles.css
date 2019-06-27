@@ -1,28 +1,73 @@
 .blockedcategories {
-  list-style: none;
+    list-style: none;
 }
 
 body {
-  min-width: 300px;
+    min-width: 300px;
+    height: auto;
 }
 
 .linking {
-  cursor: pointer;
-  color: blue;
+    cursor: pointer;
+    color: blue;
 }
 
 .backButton {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .flexing {
-  display: flex;
+    display: flex;
 }
 
 .flex1 {
-  flex: 1;
+    flex: 1;
 }
 
 .flex2 {
-  flex: 15;
+    flex: 15;
+}
+
+.signin {
+    margin: 10px;
+}
+
+.signup {
+    margin: 10px;
+}
+
+.signout {
+    margin: 30px;
+}
+
+.resetpass {
+    margin: 10px;
+}
+
+.block {
+    margin: 30px;
+    background-color: green;
+}
+
+.toptext {
+    margin-top: 10px;
+    max-width: 300px;
+}
+
+.savePreferences {
+    background-color: #c1200f;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    float: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.buttonwrapper {
+    text-align: center;
 }

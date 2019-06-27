@@ -21,16 +21,19 @@ class Welcome extends Component {
       <FirebaseContext.Consumer>
         {firebase => (
           <div>
-            Meow Arjavi!
+            <p className="toptext">Meow! Click the button below and block to your heart's content!</p>
             <br />
-            <span
-              className="linking"
+            <Button
+              className="block"
+              color="primary"
               onClick={() => this.props.changePage("BlockedCategories")}
             >
               Block Categories
-            </span>
+            </Button>
             <br />
-            <Button onClick={() => this.handleSignOut(firebase)}>
+            <Button 
+              className="signout"
+              onClick={() => this.handleSignOut(firebase)}>
               Sign Out
             </Button>
           </div>

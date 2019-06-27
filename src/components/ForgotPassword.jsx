@@ -47,7 +47,7 @@ class ForgotPassword extends Component {
       <FirebaseContext.Consumer>
         {firebase => (
           <div className="container">
-            <h1>Reset Password</h1>
+            <h1 className="toptext">Reset Password</h1>
 
             <Input
               placeholder="Email"
@@ -57,6 +57,7 @@ class ForgotPassword extends Component {
             />
 
             <Button
+              className="resetpass"
               disabled={isInvalid}
               color="primary"
               type="submit"

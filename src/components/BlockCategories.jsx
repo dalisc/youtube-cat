@@ -94,7 +94,8 @@ class BlockCategories extends Component {
       //     this.getBlockedCategories(firebase);
       // return (
       <div className="container">
-        <h1>Blocked categories:</h1>
+        <h1 className="toptext">Blocked categories:</h1>
+        <br/>
         <div className="row">
           <div className="checkbox-group">
             <ul className="blockedcategories">
@@ -105,6 +106,7 @@ class BlockCategories extends Component {
                   id="selectAll"
                   onClick={this.handleSelectAll}
                 />
+              
                 Select all
               </li>
               <br />
@@ -196,7 +198,7 @@ class BlockCategories extends Component {
                   name="How-to & Style"
                   class="enableKey"
                 />
-                How-to & Style
+                Howto & Style
               </li>
               <li>
                 <input
@@ -223,7 +225,7 @@ class BlockCategories extends Component {
                   name="Nonprofits & Activism"
                   class="enableKey"
                 />
-                Nonprofits &A Activism
+                Nonprofits & Activism
               </li>
               <li>
                 <input
@@ -271,12 +273,15 @@ class BlockCategories extends Component {
                 Travel & Events
               </li>
             </ul>
+            <div class="buttonwrapper">
             <button
               id="savePreferences"
+              class="savePreferences"
               onClick={() => this.handleSavePreferences(this.props.firebase)}
             >
-              Let the blocking begin!
+              Begin block!
             </button>
+            </div>
           </div>
         </div>
       </div>

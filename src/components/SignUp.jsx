@@ -58,7 +58,7 @@ class SignUp extends Component {
       <FirebaseContext.Consumer>
         {firebase => (
           <div className="container">
-            <h1>Sign Up:</h1>
+            <h1 className="toptext">Sign Up</h1>
             <Input
               placeholder="Username"
               name="username"
@@ -86,16 +86,18 @@ class SignUp extends Component {
               value={retypePassword}
             />
             <Button
+              className="signup"
               disabled={isInvalid}
               color="primary"
               type="submit"
               onClick={event => this.onSubmit({ firebase }, event)}
             >
-              Sign Up!
+              Sign Up
             </Button>{" "}
             <br />
             {error && <p>{error.message}</p>}
             Already have an account?{" "}
+            <br/>
             <span
               className="linking"
               onClick={() => this.props.changePage("LogIn")}
