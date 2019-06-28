@@ -94,7 +94,7 @@ class BlockCategories extends Component {
       //     this.getBlockedCategories(firebase);
       // return (
       <div className="container">
-        <h1 className="toptext">Blocked categories:</h1>
+        <h3 className="toptext">Blocked categories:</h3>
         <br/>
         <div className="row">
           <div className="checkbox-group">

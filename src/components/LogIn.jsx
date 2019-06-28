@@ -101,6 +101,8 @@ class LogIn extends Component {
             >
               Sign Up
             </span>
+            <br />
+            <br />
           </div>
         )}
       </FirebaseContext.Consumer>

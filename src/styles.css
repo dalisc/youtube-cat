@@ -54,6 +54,10 @@ body {
     max-width: 300px;
 }
 
+.bottomtext {
+    margin-top: 10px;
+}
+
 .savePreferences {
     background-color: #c1200f;
     border: none;
