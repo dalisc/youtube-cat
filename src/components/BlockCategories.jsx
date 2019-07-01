@@ -195,7 +195,7 @@ class BlockCategories extends Component {
                 <input
                   type="checkbox"
                   value="9"
-                  name="How-to & Style"
+                  name="Howto & Style"
                   class="enableKey"
                 />
                 Howto & Style
