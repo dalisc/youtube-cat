@@ -1,6 +1,5 @@
 /*global chrome*/
 import React, { Component } from "react";
-import { FirebaseContext } from "./firebase";
 
 class BlockCategories extends Component {
   state = {
@@ -95,7 +94,7 @@ class BlockCategories extends Component {
       // return (
       <div className="container">
         <h3 className="toptext">Blocked categories:</h3>
-        <br/>
+        <br />
         <div className="row">
           <div className="checkbox-group">
             <ul className="blockedcategories">
@@ -106,7 +105,6 @@ class BlockCategories extends Component {
                   id="selectAll"
                   onClick={this.handleSelectAll}
                 />
-              
                 Select all
               </li>
               <br />
@@ -274,13 +272,13 @@ class BlockCategories extends Component {
               </li>
             </ul>
             <div class="buttonwrapper">
-            <button
-              id="savePreferences"
-              class="savePreferences"
-              onClick={() => this.handleSavePreferences(this.props.firebase)}
-            >
-              Begin block!
-            </button>
+              <button
+                id="savePreferences"
+                class="savePreferences"
+                onClick={() => this.handleSavePreferences(this.props.firebase)}
+              >
+                Begin block!
+              </button>
             </div>
           </div>
         </div>

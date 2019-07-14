@@ -21,7 +21,9 @@ class Welcome extends Component {
       <FirebaseContext.Consumer>
         {firebase => (
           <div>
-            <p className="toptext">Meow! Click the button below and block to your heart's content!</p>
+            <p className="toptext">
+              Meow! Click the button below and block to your heart's content!
+            </p>
             <br />
             <Button
               className="block"
@@ -30,10 +32,20 @@ class Welcome extends Component {
             >
               Block Categories
             </Button>
+
+            <Button
+              className="Friends"
+              color="primary"
+              onClick={() => this.props.changePage("Friends")}
+            >
+              Friends
+            </Button>
+
             <br />
-            <Button 
+            <Button
               className="signout"
-              onClick={() => this.handleSignOut(firebase)}>
+              onClick={() => this.handleSignOut(firebase)}
+            >
               Sign Out
             </Button>
           </div>
