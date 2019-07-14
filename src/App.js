@@ -7,6 +7,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import Welcome from "./components/Welcome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FirebaseContext } from "./components/firebase";
+import Friends from "./components/Friends";
 
 class App extends Component {
   state = {
@@ -37,7 +38,10 @@ class App extends Component {
   handleBack = () => {
     if (this.state.page === "SignUp" || this.state.page === "ForgotPassword") {
       this.handlePages("LogIn");
-    } else if (this.state.page === "BlockedCategories") {
+    } else if (
+      this.state.page === "BlockedCategories" ||
+      this.state.page === "Friends"
+    ) {
       this.handlePages("Welcome");
     }
   };
@@ -88,6 +92,19 @@ class App extends Component {
           <FirebaseContext.Consumer>
             {firebase => (
               <BlockedCategories
+                changePage={this.handlePages}
+                authUser={this.state.authUser}
+                firebase={firebase}
+              />
+            )}
+          </FirebaseContext.Consumer>
+        );
+
+      case "Friends":
+        return (
+          <FirebaseContext.Consumer>
+            {firebase => (
+              <Friends
                 changePage={this.handlePages}
                 authUser={this.state.authUser}
                 firebase={firebase}
