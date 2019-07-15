@@ -59,9 +59,68 @@ class Friends extends Component {
         );
       }
     );
+
+    //remove request sent from potential friend's account
+    firebase
+      .user(request.id)
+      .get()
+      .then(querySnapshot => {
+        let fetchRequestsreceivedData = querySnapshot.data().requests_received;
+
+        if (fetchRequestsreceivedData !== undefined) {
+          firebase.user(request.id).set(
+            {
+              requests_received: fetchRequestsreceivedData.filter(
+                friend => friend.id !== this.props.authUser.uid
+              )
+            },
+            { merge: true }
+          );
+        }
+      });
   };
 
-  renderFriendsList = () => {
+  handleRemoveFriend = (foe, firebase) => {
+    this.setState(
+      {
+        friendsList: this.state.friendsList.filter(
+          friend => friend.id !== foe.id
+        )
+      },
+      () => {
+        firebase.user(this.props.authUser.uid).set(
+          {
+            friends: this.state.friendsList
+          },
+          {
+            merge: true
+          }
+        );
+      }
+    );
+
+    firebase
+      .user(foe.id)
+      .get()
+      .then(querySnapshot => {
+        let foeFriendsList = querySnapshot.data().friends;
+
+        if (foeFriendsList !== undefined) {
+          firebase.user(foe.id).set(
+            {
+              friends: foeFriendsList.filter(
+                friend => friend.id !== this.props.authUser.uid
+              )
+            },
+            {
+              merge: true
+            }
+          );
+        }
+      });
+  };
+
+  renderFriendsList = firebase => {
     return this.state.isLoading ? (
       <Spinner animation="border" role="status" />
     ) : this.state.friendsList !== undefined ? (
@@ -69,7 +128,12 @@ class Friends extends Component {
         <div>
           <h6>{friend.username}</h6>
           <Button color="success">Help my friend!</Button>
-          <Button color="danger">Remove friend</Button>
+          <Button
+            color="danger"
+            onClick={() => this.handleRemoveFriend(friend, firebase)}
+          >
+            Remove friend
+          </Button>
         </div>
       ))
     ) : (
@@ -92,6 +156,7 @@ class Friends extends Component {
   };
 
   acceptReceivedRequest = (friend, firebase) => {
+    // add this new friend to the existing list of friends locally and on firestore
     this.setState(
       {
         friendsList: [...this.state.friendsList, friend]
@@ -107,6 +172,7 @@ class Friends extends Component {
           }
         );
 
+        //remove this friend from the friends request section locally and on firestore
         this.setState(
           {
             requestsReceived: this.state.requestsReceived.filter(
@@ -122,6 +188,8 @@ class Friends extends Component {
                 merge: true
               }
             );
+
+            //add yourself as a friend in this new friend's firestore
             firebase
               .user(friend.id)
               .get()
@@ -139,6 +207,7 @@ class Friends extends Component {
                         querySnapshot.data().friends !== undefined
                           ? { ...querySnapshot.data().friends }
                           : { ...[] },
+
                         {
                           email: this.props.authUser.email,
                           username: this.state.username,
@@ -156,7 +225,45 @@ class Friends extends Component {
     );
   };
 
-  rejectReceivedRequest = (friend, firebase) => {};
+  rejectReceivedRequest = (request, firebase) => {
+    // remove request received locally and on firestore
+    this.setState(
+      {
+        requestsReceived: this.state.requestsReceived.filter(
+          friend => friend.id !== request.id
+        )
+      },
+      () => {
+        firebase.user(this.props.authUser.uid).set(
+          {
+            requests_received: this.state.requestsReceived
+          },
+          {
+            merge: true
+          }
+        );
+      }
+    );
+
+    //remove request sent from potential friend's account
+    firebase
+      .user(request.id)
+      .get()
+      .then(querySnapshot => {
+        let fetchRequestsSentData = querySnapshot.data().requests_sent;
+
+        if (fetchRequestsSentData !== undefined) {
+          firebase.user(request.id).set(
+            {
+              requests_sent: fetchRequestsSentData.filter(
+                friend => friend.id !== this.props.authUser.uid
+              )
+            },
+            { merge: true }
+          );
+        }
+      });
+  };
 
   renderRequestsReceived = firebase => {
     return this.state.requestsReceived.map(friend => (
@@ -277,7 +384,7 @@ class Friends extends Component {
       <div className="container">
         <h3 className="toptext">Friends</h3>
 
-        {this.renderFriendsList()}
+        {this.renderFriendsList(this.props.firebase)}
 
         <Button
           className="signout"
