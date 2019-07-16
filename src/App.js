@@ -8,6 +8,7 @@ import Welcome from "./components/Welcome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FirebaseContext } from "./components/firebase";
 import Friends from "./components/Friends";
+import { thisExpression } from "@babel/types";
 
 class App extends Component {
   state = {
@@ -15,7 +16,8 @@ class App extends Component {
     authUser:
       localStorage.getItem("authUser") !== "null"
         ? JSON.parse(localStorage.getItem("authUser"))
-        : localStorage.getItem("authUser") !== "null"
+        : localStorage.getItem("authUser") !== "null",
+    blockedCategoriesUser: null
   };
 
   handlePages = pageTitle => {
@@ -44,6 +46,21 @@ class App extends Component {
     ) {
       this.handlePages("Welcome");
     }
+  };
+
+  handleBlockedCategoriesUser = user => {
+    this.setState({
+      blockedCategoriesUser: user
+    });
+  };
+
+  handleHelpFriend = friend => {
+    this.setState(
+      {
+        blockedCategoriesUser: friend
+      },
+      () => this.handlePages("BlockedCategories")
+    );
   };
 
   renderBack = () => {
@@ -85,6 +102,7 @@ class App extends Component {
             changePage={this.handlePages}
             changeAuth={this.handleAuthUser}
             authUser={this.state.authUser}
+            blockedCategoriesUser={this.handleBlockedCategoriesUser}
           />
         );
       case "BlockedCategories":
@@ -93,7 +111,7 @@ class App extends Component {
             {firebase => (
               <BlockedCategories
                 changePage={this.handlePages}
-                authUser={this.state.authUser}
+                user={this.state.blockedCategoriesUser}
                 firebase={firebase}
               />
             )}
@@ -108,6 +126,8 @@ class App extends Component {
                 changePage={this.handlePages}
                 authUser={this.state.authUser}
                 firebase={firebase}
+                blockedCategoriesUser={this.handleBlockedCategoriesUser}
+                handleHelpFriend={this.handleHelpFriend}
               />
             )}
           </FirebaseContext.Consumer>
@@ -124,6 +144,7 @@ class App extends Component {
               changePage={this.handlePages}
               changeAuth={this.handleAuthUser}
               authUser={this.state.authUser}
+              blockedCategoriesUser={this.handleBlockedCategoriesUser}
             />
           );
         } else {

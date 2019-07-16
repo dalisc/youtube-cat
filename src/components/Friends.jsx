@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Input, Button, Form, FormGroup } from "reactstrap";
 import Spinner from "react-bootstrap/Spinner";
+import BlockedCategories from "./BlockCategories";
 
 class Friends extends Component {
   state = {
@@ -36,7 +37,7 @@ class Friends extends Component {
               ? []
               : snapshot.data().requests_received
         },
-        () => console.log("requests sent: ", this.state.requestsSent)
+        () => console.log("friends: ", this.state.friendsList.length === 0)
       );
     });
   }
@@ -127,7 +128,12 @@ class Friends extends Component {
       this.state.friendsList.map(friend => (
         <div>
           <h6>{friend.username}</h6>
-          <Button color="success">Help my friend!</Button>
+          <Button
+            color="success"
+            onClick={() => this.props.handleHelpFriend(friend)}
+          >
+            Help my friend!
+          </Button>
           <Button
             color="danger"
             onClick={() => this.handleRemoveFriend(friend, firebase)}
@@ -198,22 +204,30 @@ class Friends extends Component {
                 console.log("friends: ", firebase.user(friend.id));
 
                 if (fetchRequestsSentData !== undefined) {
+                  const temp =
+                    querySnapshot.data().friends === undefined ||
+                    querySnapshot.data().friends.length === 0
+                      ? [
+                          {
+                            email: this.props.authUser.email,
+                            username: this.state.username,
+                            id: this.props.authUser.uid
+                          }
+                        ]
+                      : [
+                          { ...querySnapshot.data().friends },
+                          {
+                            email: this.props.authUser.email,
+                            username: this.state.username,
+                            id: this.props.authUser.uid
+                          }
+                        ];
                   firebase.user(friend.id).set(
                     {
                       requests_sent: fetchRequestsSentData.filter(
                         request => request.id !== this.props.authUser.uid
                       ),
-                      friends: [
-                        querySnapshot.data().friends !== undefined
-                          ? { ...querySnapshot.data().friends }
-                          : { ...[] },
-
-                        {
-                          email: this.props.authUser.email,
-                          username: this.state.username,
-                          id: this.props.authUser.uid
-                        }
-                      ]
+                      friends: temp
                     },
                     { merge: true }
                   );

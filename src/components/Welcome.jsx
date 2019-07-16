@@ -15,6 +15,10 @@ class Welcome extends Component {
     });
   };
 
+  componentDidMount() {
+    this.props.blockedCategoriesUser(this.props.authUser);
+  }
+
   render() {
     console.log("local storage: ", this.props.authUser);
     return (

@@ -4,12 +4,22 @@ import React, { Component } from "react";
 class BlockCategories extends Component {
   state = {
     selectAllChecked: true,
-    blockedCategories: null
+    blockedCategories: null,
+    userId: null
   };
 
   async componentDidMount() {
+    const userId =
+      this.props.user.id === undefined
+        ? this.props.user.uid
+        : this.props.user.id;
+
+    console.log("user for blocking: ", userId);
+    this.setState({
+      userId
+    });
     const blockedCategories = await this.props.firebase
-      .user(this.props.authUser.uid)
+      .user(userId)
       .onSnapshot(snapshot => {
         this.setState({ blockedCategories: snapshot.data() }, () => {
           const { blockedCategories } = this.state;
@@ -59,7 +69,7 @@ class BlockCategories extends Component {
     );
 
     localStorage.setItem("blockedCategories", JSON.stringify(checkedItems));
-    firebase.user(this.props.authUser.uid).set(
+    firebase.user(this.state.userId).set(
       {
         blockedCategories: checkedItems
       },
