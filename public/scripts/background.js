@@ -1,5 +1,7 @@
 var blockedCategories = [];
+var blocked = 0;
 var userForcedRefresh = false;
+var stateChanged = false;
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.todo == "blockedCatArr") {
@@ -14,24 +16,28 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             }
         );
     } else if (request.userAction == "forcedRefresh") {
+        response({ feedback: "redoing block" });
         getCatID(request.vidID);
         userForcedRefresh = true;
-        response({ feedback: "redoing block" });
     }
 });
 
 chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
     userForcedRefresh = false;
-    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, { todo: "getVidID" }, function(
-            response
-        ) {
-            if (response != undefined) {
-                console.log(response.vidID);
-                getCatID(response.vidID);
-            }
+
+    if (!stateChanged) {
+        stateChanged = true;
+        chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, { todo: "getVidID" }, function(
+                response
+            ) {
+                if (response != undefined) {
+                    console.log(response.vidID);
+                    getCatID(response.vidID);
+                }
+            });
         });
-    });
+    }
 
 });
 
@@ -82,12 +88,21 @@ function getCatID(vidID) {
                     }
                 }
 
-                if (toBlock) {
+                if (toBlock || (userForcedRefresh && blocked > 0)) {
                     console.log("block condition");
                     // sends message to all open tabs
                     // in case the user opens a to-be-blocked video in a new tab
                     chrome.tabs.query({}, function(tabs) {
-                        var message = { todo: "blockVideo" };
+                        blocked++;
+                        console.log(blocked)
+                        if (blocked > 2) {
+                            blocked = 0;
+                            console.log("blocked twice");
+                            var message = { todo: "redirect" };
+                        } else {
+                            var message = { todo: "blockVideo" };
+                        }
+
                         for (var i = 0; i < tabs.length; ++i) {
                             chrome.tabs.sendMessage(tabs[i].id, message, function(response) {
                                 if (response != undefined) {
@@ -95,12 +110,14 @@ function getCatID(vidID) {
                                 }
                             });
                         }
+
                     });
 
                 } else {
 
                     if (!userForcedRefresh) {
-                        console.log("refreshing page to unblock wanted vid")
+                        console.log("refreshing page to unblock wanted vid");
+                        blocked = 0; // restart block count
                         chrome.tabs.query({ active: true, currentWindow: true }, function(
                             tabs
                         ) {
@@ -120,5 +137,7 @@ function getCatID(vidID) {
             .catch(err => {
                 console.log(err);
             });
+
+        stateChanged = false;
     }
 }
