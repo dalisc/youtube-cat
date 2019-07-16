@@ -1,3 +1,5 @@
 src/components/firebase/config.js
 
 node_modules/
+
+build/
