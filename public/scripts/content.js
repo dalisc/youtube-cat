@@ -1,5 +1,4 @@
 var vidID = youtube_parser(window.location.href);
-
 // Reload page on extension update/uninstall
 // port.onDisconnect.addListener(() => document.location.reload());
 
@@ -47,6 +46,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, response) {
             todo: "blockedCatArr",
             categories: categoriesArr
         });
+    } else if (request.todo == "receivePurpose") {
+        var purpose = request.purpose;
+        localStorage.setItem('purpose', purpose)
     } else if (request.todo == "getVidID") {
         console.log("content received message");
         var vidID = youtube_parser(window.location.href);
@@ -58,10 +60,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, response) {
     } else if (request.todo == "redirect") {
         response({ done: "redirected to main page" });
         var url = localStorage.getItem('search')
+        var purpose = localStorage.getItem('purpose')
         if (url = '') {
             window.location.href = "https://www.youtube.com";
         } else {
             window.location.href = url;
+            if (purpose) {
+                alert("Remember, your purpose today is:" + purpose);
+            }
         }
 
     } else if (request.todo == "refreshPageToUnblockVid") {
