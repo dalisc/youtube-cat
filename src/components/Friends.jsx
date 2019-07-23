@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Input, Button, Form, FormGroup } from "reactstrap";
 import Spinner from "react-bootstrap/Spinner";
-import BlockedCategories from "./BlockCategories";
 
 class Friends extends Component {
   state = {
@@ -306,89 +305,140 @@ class Friends extends Component {
   };
 
   handleAddFriend = firebase => {
-    firebase.db
-      .collection("users")
-      .where("email", "==", this.state.friendEmail)
-      .get()
-      .then(querySnapshot => {
-        if (querySnapshot.docs.length < 1) {
-          this.setState({
-            message:
-              "Meow Meow. This user does not exist. Please check the email and try again"
-          });
-        } else {
-          querySnapshot.forEach(doc => {
-            if (
-              this.state.requestsSent.filter(friend => friend.uid === doc.id)
-                .length === 0
-            ) {
-              this.setState(
-                {
-                  requestsSent: [
-                    ...this.state.requestsSent,
-                    {
-                      email: this.state.friendEmail,
-                      username: doc.data().username,
-                      id: doc.id
-                    }
-                  ],
-                  friendId: doc.id
-                },
-                () => {
-                  console.log("friend id: ", this.state.friendId);
-                  firebase.user(this.props.authUser.uid).set(
-                    {
-                      requests_sent: this.state.requestsSent
-                    },
-                    { merge: true }
-                  );
+    if (this.state.friendEmail === this.props.authUser.email) {
+      this.setState({
+        message:
+          "There is no denying that you are a friend of yourself! Broaden your horizons!",
+        friendEmail: ""
+      });
+    } else {
+      const alreadyFriend = this.state.friendsList.filter(friend => {
+        // console.log(friend.email, "     ", this.state.friendEmail);
+        return friend.email === this.state.friendEmail;
+      });
 
+      const alreadyRequestReceived = this.state.requestsReceived.filter(
+        request => {
+          // console.log(request.email, "     ", this.state.friendEmail);
+          return request.email === this.state.friendEmail;
+        }
+      );
+
+      console.log(this.state.requestsSent);
+      const alreadyRequestSent = this.state.requestsSent.filter(request => {
+        // console.log(request.email, "     ", this.state.friendEmail);
+        return request.email === this.state.friendEmail;
+      });
+      if (alreadyFriend.length > 0) {
+        this.setState({
+          message:
+            "The user is already your friend!! Do you doubt your friendship meow?",
+          friendEmail: ""
+        });
+      } else if (alreadyRequestReceived.length > 0) {
+        this.setState({
+          message:
+            "The user has already sent you a request! Go ahead and accept it! Start of a new friendship!",
+          friendEmail: ""
+        });
+      } else if (alreadyRequestSent.length > 0) {
+        this.setState({
+          message:
+            "Don't be so desperate meow. Give the user some time to accept your request!",
+          friendEmail: ""
+        });
+      } else {
+        firebase.db
+          .collection("users")
+          .where("email", "==", this.state.friendEmail)
+          .get()
+          .then(querySnapshot => {
+            if (querySnapshot.docs.length < 1) {
+              this.setState({
+                message:
+                  "Meow Meow. This user does not exist. Please check the email and try again",
+                friendEmail: ""
+              });
+            } else {
+              querySnapshot.forEach(doc => {
+                if (
+                  this.state.requestsSent.filter(
+                    friend => friend.uid === doc.id
+                  ).length === 0
+                ) {
                   this.setState(
                     {
-                      message: "Request sent"
+                      requestsSent: [
+                        ...this.state.requestsSent,
+                        {
+                          email: this.state.friendEmail,
+                          username: doc.data().username,
+                          id: doc.id
+                        }
+                      ],
+                      friendId: doc.id
                     },
                     () => {
-                      firebase
-                        .user(this.state.friendId)
-                        .get()
-                        .then(querySnapshot => {
-                          this.setState(
-                            {
-                              friendsPendingRequests:
-                                querySnapshot.data().requests_received ===
-                                undefined
-                                  ? []
-                                  : querySnapshot.data().requests_received
-                            },
-                            () => {
-                              firebase.user(this.state.friendId).set(
+                      console.log("friend id: ", this.state.friendId);
+                      firebase.user(this.props.authUser.uid).set(
+                        {
+                          requests_sent: this.state.requestsSent
+                        },
+                        { merge: true }
+                      );
+
+                      this.setState(
+                        {
+                          message: "Request sent"
+                        },
+                        () => {
+                          firebase
+                            .user(this.state.friendId)
+                            .get()
+                            .then(querySnapshot => {
+                              this.setState(
                                 {
-                                  requests_received: [
-                                    ...this.state.friendPendingRequests,
-                                    {
-                                      id: this.props.authUser.uid,
-                                      email: this.props.authUser.email,
-                                      username: this.state.username
-                                    }
-                                  ]
+                                  friendsPendingRequests:
+                                    querySnapshot.data().requests_received ===
+                                    undefined
+                                      ? []
+                                      : querySnapshot.data().requests_received
                                 },
-                                { merge: true }
+                                () => {
+                                  firebase.user(this.state.friendId).set(
+                                    {
+                                      requests_received: [
+                                        ...this.state.friendPendingRequests,
+                                        {
+                                          id: this.props.authUser.uid,
+                                          email: this.props.authUser.email,
+                                          username: this.state.username
+                                        }
+                                      ]
+                                    },
+                                    { merge: true }
+                                  );
+                                }
                               );
-                            }
-                          );
-                        });
+                            });
+                        }
+                      );
                     }
                   );
+                } else {
+                  this.setState({
+                    message:
+                      "Request is already sent. Please be patient and purr"
+                  });
                 }
-              );
-            } else {
-              this.setState({
-                message: "Request is already sent. Please be patient and purr"
+                this.setState({
+                  friendEmail: ""
+                });
               });
             }
           });
-        }
-      });
+      }
+    }
   };
 
   handleUpdateFriendsPreferences = firebase => {};
@@ -400,14 +450,14 @@ class Friends extends Component {
 
         {this.renderFriendsList(this.props.firebase)}
 
-        <Button
+        {/* <Button
           className="signout"
           onClick={() =>
             this.handleUpdateFriendsPreferences(this.props.firebase)
           }
         >
           Update Preferences
-        </Button>
+        </Button> */}
 
         <h4>Requests Sent</h4>
         {this.renderRequestsSent(this.props.firebase)}
@@ -422,6 +472,7 @@ class Friends extends Component {
               placeholder="email"
               type="email"
               onChange={e => this.handleFriendEmail(e)}
+              value={this.state.friendEmail}
             />
 
             <Button
