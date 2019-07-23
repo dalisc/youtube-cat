@@ -86,12 +86,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, response) {
 
 function blockVideo() {
     var pause = document.getElementsByClassName("ytp-play-button");
-    console.log(pause);
+    console.log(pause[0]);
     pause[0].click();
     var div1 = document.getElementById("movie_player");
     div1.innerHTML = "";
     var image = document.createElement("img");
-    image.setAttribute("src", "https://via.placeholder.com/150");
+    image.setAttribute("src", "https://i.ibb.co/kDKq8SK/1.png");
     image.setAttribute("alt", "video is blocked");
     div1.appendChild(image);
     var div6 = document.getElementById("player-container-outer");
