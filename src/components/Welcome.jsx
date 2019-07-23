@@ -2,10 +2,10 @@
 import React, { Component } from "react";
 import { Button, Input } from "reactstrap";
 import { FirebaseContext } from "./firebase";
-import { DH_CHECK_P_NOT_PRIME } from "constants";
+import Spinner from "react-bootstrap/Spinner";
 
 class Welcome extends Component {
-  state = { purpose: "" };
+  state = { purpose: "", username: "", isLoading: true };
 
   handleSignOut = firebase => {
     firebase.doSignOut().then(signout => {
@@ -48,54 +48,71 @@ class Welcome extends Component {
     );
   };
 
+  fetchUsername = firebase => {
+    if (this.state.username === "") {
+      firebase.user(this.props.authUser.uid).onSnapshot(snapshot => {
+        this.setState({
+          username: snapshot.data().username,
+          isLoading: false
+        });
+        console.log("username: ", snapshot.data().username);
+      });
+    }
+  };
+
   componentDidMount() {
     this.props.blockedCategoriesUser(this.props.authUser);
   }
 
   render() {
-    console.log("local storage: ", this.props.authUser);
     return (
       <FirebaseContext.Consumer>
-        {firebase => (
-          <div>
-            <p className="toptext">
-              Meow! Click the button below and block to your heart's content!
-            </p>
-            <br />
-            <Button
-              className="block"
-              color="primary"
-              onClick={() => this.props.changePage("BlockedCategories")}
-            >
-              Block Categories
-            </Button>
-            <Button
-              className="Friends"
-              color="primary"
-              onClick={() => this.props.changePage("Friends")}
-            >
-              Friends
-            </Button>
-            <br />
-            What is the one thing you want to focus on today?
-            <Input
-              placeholder="Purpose"
-              value={this.state.purpose}
-              onChange={e => this.handlePurpose(e)}
-            />
-            <br />
-            <Button onClick={() => this.handlePurposeSubmission(firebase)}>
-              Start a more meaningful life
-            </Button>
-            <br />
-            <Button
-              className="signout"
-              onClick={() => this.handleSignOut(firebase)}
-            >
-              Sign Out
-            </Button>
-          </div>
-        )}
+        {firebase => {
+          this.fetchUsername(firebase);
+          return this.state.isLoading ? (
+            <Spinner animation="border" role="status" />
+          ) : (
+            <div>
+              <p className="toptext">
+                Meow {this.state.username}! Click the button below and block to
+                your heart's content!
+              </p>
+              <br />
+              <Button
+                className="block"
+                color="primary"
+                onClick={() => this.props.changePage("BlockedCategories")}
+              >
+                Block Categories
+              </Button>
+              <Button
+                className="Friends"
+                color="primary"
+                onClick={() => this.props.changePage("Friends")}
+              >
+                Friends
+              </Button>
+              <br />
+              What is the one thing you want to focus on today?
+              <Input
+                placeholder="Purpose"
+                value={this.state.purpose}
+                onChange={e => this.handlePurpose(e)}
+              />
+              <br />
+              <Button onClick={() => this.handlePurposeSubmission(firebase)}>
+                Start a more meaningful life
+              </Button>
+              <br />
+              <Button
+                className="signout"
+                onClick={() => this.handleSignOut(firebase)}
+              >
+                Sign Out
+              </Button>
+            </div>
+          );
+        }}
       </FirebaseContext.Consumer>
     );
   }
