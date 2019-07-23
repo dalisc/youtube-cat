@@ -25,18 +25,18 @@ class Welcome extends Component {
   };
 
   handlePurposeSubmission = firebase => {
-    // chrome.tabs.query(
-    //   {
-    //     active: true,
-    //     currentWindow: true
-    //   },
-    //   function(tabs) {
-    //     chrome.tabs.sendMessage(tabs[0].id, {
-    //       purpose: this.state.purpose,
-    //       todo: "receivePurpose"
-    //     });
-    //   }
-    // );
+    chrome.tabs.query(
+      {
+        active: true,
+        currentWindow: true
+      },
+      function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {
+          purpose: this.state.purpose,
+          todo: "receivePurpose"
+        });
+      }
+    );
 
     firebase.user(this.props.authUser.uid).set(
       {
