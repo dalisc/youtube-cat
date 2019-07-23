@@ -5,7 +5,7 @@ import { FirebaseContext } from "./firebase";
 import Spinner from "react-bootstrap/Spinner";
 
 class Welcome extends Component {
-  state = { purpose: "", username: "", isLoading: true };
+  state = { purpose: "", username: "", isLoading: true, savedPurpose: null };
 
   handleSignOut = firebase => {
     firebase.doSignOut().then(signout => {
@@ -25,18 +25,18 @@ class Welcome extends Component {
   };
 
   handlePurposeSubmission = firebase => {
-    chrome.tabs.query(
-      {
-        active: true,
-        currentWindow: true
-      },
-      function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {
-          purpose: this.state.purpose,
-          todo: "receivePurpose"
-        });
-      }
-    );
+    // chrome.tabs.query(
+    //   {
+    //     active: true,
+    //     currentWindow: true
+    //   },
+    //   function(tabs) {
+    //     chrome.tabs.sendMessage(tabs[0].id, {
+    //       purpose: this.state.purpose,
+    //       todo: "receivePurpose"
+    //     });
+    //   }
+    // );
 
     firebase.user(this.props.authUser.uid).set(
       {
@@ -46,14 +46,20 @@ class Welcome extends Component {
         merge: true
       }
     );
+
+    this.setState({
+      savedPurpose: this.state.purpose,
+      purpose: ""
+    });
   };
 
-  fetchUsername = firebase => {
+  fetchUserDetails = firebase => {
     if (this.state.username === "") {
       firebase.user(this.props.authUser.uid).onSnapshot(snapshot => {
         this.setState({
           username: snapshot.data().username,
-          isLoading: false
+          isLoading: false,
+          savedPurpose: snapshot.data().purpose
         });
         console.log("username: ", snapshot.data().username);
       });
@@ -68,7 +74,7 @@ class Welcome extends Component {
     return (
       <FirebaseContext.Consumer>
         {firebase => {
-          this.fetchUsername(firebase);
+          this.fetchUserDetails(firebase);
           return this.state.isLoading ? (
             <Spinner animation="border" role="status" />
           ) : (
@@ -92,6 +98,13 @@ class Welcome extends Component {
               >
                 Friends
               </Button>
+              <br />
+              <h3>Purpose</h3>
+              <br />
+              {this.state.savedPurpose === undefined ||
+              this.state.savedPurpose === null
+                ? ""
+                : this.state.savedPurpose}
               <br />
               What is the one thing you want to focus on today?
               <Input
