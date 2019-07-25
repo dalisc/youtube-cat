@@ -11,8 +11,8 @@ class Welcome extends Component {
     firebase.doSignOut().then(signout => {
       console.log("signout");
       firebase.auth.onAuthStateChanged(authUser => {
-        this.props.changeAuth("null");
         this.props.changePage("LogIn");
+        this.props.changeAuth("null");
       });
     });
   };
@@ -54,7 +54,7 @@ class Welcome extends Component {
   };
 
   fetchUserDetails = firebase => {
-    if (this.state.username === "") {
+    if (this.state.username === "" && this.props.authUser !== null) {
       firebase.user(this.props.authUser.uid).onSnapshot(snapshot => {
         this.setState({
           username: snapshot.data().username,
@@ -67,6 +67,7 @@ class Welcome extends Component {
   };
 
   componentDidMount() {
+    console.log("authuser: ", this.props.authUser);
     this.props.blockedCategoriesUser(this.props.authUser);
   }
 
@@ -77,6 +78,17 @@ class Welcome extends Component {
           this.fetchUserDetails(firebase);
           return this.state.isLoading ? (
             <Spinner animation="border" role="status" />
+          ) : this.props.authUser === null ||
+            !this.props.authUser.emailVerified ? (
+            <div>
+              <p>Please check your email and verify it meow!</p>
+              <Button
+                className="signout"
+                onClick={() => this.handleSignOut(firebase)}
+              >
+                Sign Out
+              </Button>
+            </div>
           ) : (
             <div>
               <p className="toptext">

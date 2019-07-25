@@ -38,8 +38,12 @@ class SignUp extends Component {
           { merge: true }
         );
       })
+      .then(() => {
+        return firebase.firebase.doSendEmailVerification();
+      })
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
+
         this.props.changePage("LogIn");
       })
       .catch(error => {
@@ -96,8 +100,7 @@ class SignUp extends Component {
             </Button>{" "}
             <br />
             {error && <p>{error.message}</p>}
-            Already have an account?{" "}
-            <br/>
+            Already have an account? <br />
             <span
               className="linking"
               onClick={() => this.props.changePage("LogIn")}
