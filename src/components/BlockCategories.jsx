@@ -7,7 +7,8 @@ class BlockCategories extends Component {
     selectAllChecked: true,
     blockedCategories: null,
     userId: null,
-    isLoading: true
+    isLoading: true,
+    message: ""
   };
 
   async componentDidMount() {
@@ -60,19 +61,19 @@ class BlockCategories extends Component {
       }
     }
 
-    chrome.tabs.query(
-      {
-        active: true,
-        currentWindow: true
-      },
-      function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {
-          todo: "changePreferences",
-          categories: catArray
-        });
-        console.log("sending message about cats");
-      }
-    );
+    // chrome.tabs.query(
+    //   {
+    //     active: true,
+    //     currentWindow: true
+    //   },
+    //   function(tabs) {
+    //     chrome.tabs.sendMessage(tabs[0].id, {
+    //       todo: "changePreferences",
+    //       categories: catArray
+    //     });
+    //     console.log("sending message about cats");
+    //   }
+    // );
 
     if (this.props.user.id === undefined) {
       //save data in local storage about self
@@ -86,6 +87,9 @@ class BlockCategories extends Component {
       },
       { merge: true }
     );
+
+    this.setState({ message: "Blocking has begun! Meow" });
+
     console.log(checkedItems);
   };
 
@@ -304,6 +308,8 @@ class BlockCategories extends Component {
                 >
                   Begin block!
                 </button>
+                <br />
+                {this.state.message}
               </div>
             </div>
           </div>
