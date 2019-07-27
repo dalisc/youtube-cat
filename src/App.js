@@ -5,10 +5,12 @@ import LogIn from "./components/LogIn";
 import BlockedCategories from "./components/BlockCategories";
 import ForgotPassword from "./components/ForgotPassword";
 import Welcome from "./components/Welcome";
+import AddFriend from "./components/AddFriend";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FirebaseContext } from "./components/firebase";
 import Friends from "./components/Friends";
 import { thisExpression } from "@babel/types";
+import FriendRequests from "./components/FriendRequests";
 
 class App extends Component {
   state = {
@@ -17,10 +19,17 @@ class App extends Component {
       localStorage.getItem("authUser") !== "null"
         ? JSON.parse(localStorage.getItem("authUser"))
         : localStorage.getItem("authUser") !== "null",
-    blockedCategoriesUser: null
+    blockedCategoriesUser: null,
+    backFor: "myself",
+    username: ""
+  };
+
+  handleUsername = name => {
+    this.setState({ username: name });
   };
 
   handlePages = pageTitle => {
+    console.log("page title: ", pageTitle);
     this.setState({
       page: pageTitle
     });
@@ -37,14 +46,28 @@ class App extends Component {
     }
   };
 
+  handleBackButtonSettings = backFor => {
+    this.setState({
+      backFor: backFor
+    });
+  };
+
   handleBack = () => {
     if (this.state.page === "SignUp" || this.state.page === "ForgotPassword") {
       this.handlePages("LogIn");
     } else if (
-      this.state.page === "BlockedCategories" ||
+      (this.state.page === "BlockedCategories" &&
+        this.state.backFor === "myself") ||
       this.state.page === "Friends"
     ) {
       this.handlePages("Welcome");
+    } else if (
+      (this.state.page === "BlockedCategories" &&
+        this.state.backFor === "friend") ||
+      this.state.page === "AddFriend" ||
+      this.state.page === "FriendRequests"
+    ) {
+      this.handlePages("Friends");
     }
   };
 
@@ -103,6 +126,7 @@ class App extends Component {
             changeAuth={this.handleAuthUser}
             authUser={this.state.authUser}
             blockedCategoriesUser={this.handleBlockedCategoriesUser}
+            setUsername={this.handleUsername}
           />
         );
       case "BlockedCategories":
@@ -113,6 +137,7 @@ class App extends Component {
                 changePage={this.handlePages}
                 user={this.state.blockedCategoriesUser}
                 firebase={firebase}
+                buttonSetting={this.handleBackButtonSettings}
               />
             )}
           </FirebaseContext.Consumer>
@@ -128,6 +153,37 @@ class App extends Component {
                 firebase={firebase}
                 blockedCategoriesUser={this.handleBlockedCategoriesUser}
                 handleHelpFriend={this.handleHelpFriend}
+                username={this.state.username}
+              />
+            )}
+          </FirebaseContext.Consumer>
+        );
+
+      case "AddFriend":
+        return (
+          <FirebaseContext.Consumer>
+            {firebase => (
+              <AddFriend
+                changePage={this.handlePages}
+                authUser={this.state.authUser}
+                firebase={firebase}
+                blockedCategoriesUser={this.handleBlockedCategoriesUser}
+                username={this.state.username}
+              />
+            )}
+          </FirebaseContext.Consumer>
+        );
+
+      case "FriendRequests":
+        return (
+          <FirebaseContext.Consumer>
+            {firebase => (
+              <FriendRequests
+                changePage={this.handlePages}
+                authUser={this.state.authUser}
+                firebase={firebase}
+                blockedCategoriesUser={this.handleBlockedCategoriesUser}
+                username={this.state.username}
               />
             )}
           </FirebaseContext.Consumer>
@@ -145,6 +201,7 @@ class App extends Component {
               changeAuth={this.handleAuthUser}
               authUser={this.state.authUser}
               blockedCategoriesUser={this.handleBlockedCategoriesUser}
+              setUsername={this.handleUsername}
             />
           );
         } else {

@@ -61,7 +61,7 @@ class Welcome extends Component {
           isLoading: false,
           savedPurpose: snapshot.data().purpose
         });
-        console.log("username: ", snapshot.data().username);
+        this.props.setUsername(snapshot.data().username);
       });
     }
   };
