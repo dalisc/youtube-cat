@@ -140,7 +140,7 @@ function getCatName(fetchCatURL) {
                     chrome.tabs.query({ active: true, currentWindow: true }, function(
                         tabs
                     ) {
-                        console.log('muting');
+                        console.log('unmuting');
                         chrome.tabs.update(tabs[0].id, { "muted": false });
                         chrome.tabs.sendMessage(
                             tabs[0].id, { todo: "refreshPageToUnblockVid" },
