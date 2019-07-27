@@ -138,6 +138,7 @@ class App extends Component {
                 user={this.state.blockedCategoriesUser}
                 firebase={firebase}
                 buttonSetting={this.handleBackButtonSettings}
+                username={this.state.username}
               />
             )}
           </FirebaseContext.Consumer>
