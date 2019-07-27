@@ -1,15 +1,28 @@
 /*global chrome*/
 import React, { Component } from "react";
+import Spinner from "react-bootstrap/Spinner";
 
 class BlockCategories extends Component {
   state = {
     selectAllChecked: true,
-    blockedCategories: null
+    blockedCategories: null,
+    userId: null,
+    isLoading: true,
+    message: ""
   };
 
   async componentDidMount() {
+    const userId =
+      this.props.user.id === undefined
+        ? this.props.user.uid
+        : this.props.user.id;
+
+    console.log("user for blocking: ", userId);
+    this.setState({
+      userId
+    });
     const blockedCategories = await this.props.firebase
-      .user(this.props.authUser.uid)
+      .user(userId)
       .onSnapshot(snapshot => {
         this.setState({ blockedCategories: snapshot.data() }, () => {
           const { blockedCategories } = this.state;
@@ -25,10 +38,14 @@ class BlockCategories extends Component {
 
               for (let i = 0; i < getCategories.length; i++) {
                 console.log("element:", getCategories[i]);
+                console.log("element nesting: ", elements);
                 elements[getCategories[i]].checked = true;
               }
             }
           }
+          this.setState({
+            isLoading: false
+          });
         });
       });
   }
@@ -58,13 +75,21 @@ class BlockCategories extends Component {
       }
     );
 
-    localStorage.setItem("blockedCategories", JSON.stringify(checkedItems));
-    firebase.user(this.props.authUser.uid).set(
+    if (this.props.user.id === undefined) {
+      //save data in local storage about self
+      console.log("setting local storage");
+      localStorage.setItem("blockedCategories", JSON.stringify(checkedItems));
+    }
+
+    firebase.user(this.state.userId).set(
       {
         blockedCategories: checkedItems
       },
       { merge: true }
     );
+
+    this.setState({ message: "Blocking has begun! Meow" });
+
     console.log(checkedItems);
   };
 
@@ -88,201 +113,208 @@ class BlockCategories extends Component {
 
   render() {
     return (
-      // <FirebaseContext.Consumer>
-      //   {firebase => {
-      //     this.getBlockedCategories(firebase);
-      // return (
-      <div className="container">
-        <h3 className="toptext">Blocked categories:</h3>
-        <br />
-        <div className="row">
-          <div className="checkbox-group">
-            <ul className="blockedcategories">
-              <li>
-                <input
-                  type="checkbox"
-                  value="-1"
-                  id="selectAll"
-                  onClick={this.handleSelectAll}
-                />
-                Select all
-              </li>
-              <br />
-              <li>
-                <input
-                  type="checkbox"
-                  value="0"
-                  name="Auto & Vehicles"
-                  class="enableKey"
-                />
-                Auto & Vehicles
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="1"
-                  name="Beauty & Fashion"
-                  class="enableKey"
-                />
-                Beauty & Fashion
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="2"
-                  name="Comedy"
-                  class="enableKey"
-                />
-                Comedy
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="3"
-                  name="Education"
-                  class="enableKey"
-                />
-                Education
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="4"
-                  name="Entertainment"
-                  class="enableKey"
-                />
-                Entertainment
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="5"
-                  name="Family Entertainment"
-                  class="enableKey"
-                />
-                Family Entertainment
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="6"
-                  name="Film & Animation"
-                  class="enableKey"
-                />
-                Film & Animation
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="7"
-                  name="Food"
-                  class="enableKey"
-                />
-                Food
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="8"
-                  name="Gaming"
-                  class="enableKey"
-                />
-                Gaming
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="9"
-                  name="Howto & Style"
-                  class="enableKey"
-                />
-                Howto & Style
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="10"
-                  name="Music"
-                  class="enableKey"
-                />
-                Music
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="11"
-                  name="News & Politics"
-                  class="enableKey"
-                />
-                News & Politics
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="12"
-                  name="Nonprofits & Activism"
-                  class="enableKey"
-                />
-                Nonprofits & Activism
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="13"
-                  name="People & Blogs"
-                  class="enableKey"
-                />
-                People & Blogs
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="14"
-                  name="Pets & Animals"
-                  class="enableKey"
-                />
-                Pets & Animals
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="15"
-                  name="Science & Technology"
-                  class="enableKey"
-                />
-                Science & Technology
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="16"
-                  name="Sports"
-                  class="enableKey"
-                />
-                Sports
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  value="17"
-                  name="Travel & Events"
-                  class="enableKey"
-                />
-                Travel & Events
-              </li>
-            </ul>
-            <div class="buttonwrapper">
-              <button
-                id="savePreferences"
-                class="savePreferences"
-                onClick={() => this.handleSavePreferences(this.props.firebase)}
-              >
-                Begin block!
-              </button>
+      <>
+        {this.state.isLoading ? (
+          <Spinner animation="border" role="status" />
+        ) : (
+          <div />
+        )}
+        <div className="container">
+          <h3 className="toptext">Blocked categories:</h3>
+          <br />
+          <div className="row">
+            <div className="checkbox-group">
+              <ul className="blockedcategories">
+                <li>
+                  <input
+                    type="checkbox"
+                    value="-1"
+                    id="selectAll"
+                    onClick={this.handleSelectAll}
+                  />
+                  Select all
+                </li>
+                <br />
+                <li>
+                  <input
+                    type="checkbox"
+                    value="0"
+                    name="Auto & Vehicles"
+                    className="enableKey"
+                  />
+                  Auto & Vehicles
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="1"
+                    name="Beauty & Fashion"
+                    className="enableKey"
+                  />
+                  Beauty & Fashion
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="2"
+                    name="Comedy"
+                    className="enableKey"
+                  />
+                  Comedy
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="3"
+                    name="Education"
+                    className="enableKey"
+                  />
+                  Education
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="4"
+                    name="Entertainment"
+                    className="enableKey"
+                  />
+                  Entertainment
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="5"
+                    name="Family Entertainment"
+                    className="enableKey"
+                  />
+                  Family Entertainment
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="6"
+                    name="Film & Animation"
+                    className="enableKey"
+                  />
+                  Film & Animation
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="7"
+                    name="Food"
+                    className="enableKey"
+                  />
+                  Food
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="8"
+                    name="Gaming"
+                    className="enableKey"
+                  />
+                  Gaming
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="9"
+                    name="Howto & Style"
+                    className="enableKey"
+                  />
+                  Howto & Style
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="10"
+                    name="Music"
+                    className="enableKey"
+                  />
+                  Music
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="11"
+                    name="News & Politics"
+                    className="enableKey"
+                  />
+                  News & Politics
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="12"
+                    name="Nonprofits & Activism"
+                    className="enableKey"
+                  />
+                  Nonprofits & Activism
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="13"
+                    name="People & Blogs"
+                    className="enableKey"
+                  />
+                  People & Blogs
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="14"
+                    name="Pets & Animals"
+                    className="enableKey"
+                  />
+                  Pets & Animals
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="15"
+                    name="Science & Technology"
+                    className="enableKey"
+                  />
+                  Science & Technology
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="16"
+                    name="Sports"
+                    className="enableKey"
+                  />
+                  Sports
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    value="17"
+                    name="Travel & Events"
+                    className="enableKey"
+                  />
+                  Travel & Events
+                </li>
+              </ul>
+              <div className="buttonwrapper">
+                <button
+                  id="savePreferences"
+                  className="savePreferences"
+                  onClick={() =>
+                    this.handleSavePreferences(this.props.firebase)
+                  }
+                >
+                  Begin block!
+                </button>
+                <br />
+                {this.state.message}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </>
     );
     //   }}
     // </FirebaseContext.Consumer>
