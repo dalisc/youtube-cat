@@ -40,9 +40,11 @@ function youtube_parser(url) {
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender, response) {
+    // receiving message from firebase
     if (request.todo == "changePreferences") {
         const categoriesArr = request.categories;
         console.log("categoriesArr: ", categoriesArr);
+        // sending message to background script
         chrome.runtime.sendMessage({
             todo: "blockedCatArr",
             categories: categoriesArr
@@ -51,6 +53,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, response) {
     } else if (request.todo == "receivePurpose") {
         var purpose = request.purpose;
         localStorage.setItem("purpose", purpose);
+        console.log("receiving purpose");
         response({ message: "done receive purpose" });
     } else if (request.todo == "getVidID") {
         console.log("content received message");
@@ -67,6 +70,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, response) {
         response({ done: "redirecting" });
         var url = localStorage.getItem("search");
         var purpose = localStorage.getItem("purpose");
+        console.log(purpose)
         if (url == null) {
             window.location.href = "https://www.youtube.com";
             console.log("redirected to main page");
@@ -74,7 +78,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, response) {
             window.location.href = url;
             console.log("redirected to search results")
         }
-        if (purpose) {
+
+        if (purpose != null) {
+            console.log("displaying purpose")
             alert("Remember, your purpose today is:" + purpose);
         }
 
