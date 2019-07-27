@@ -85,15 +85,20 @@ chrome.runtime.onMessage.addListener(function(request, sender, response) {
 });
 
 function blockVideo() {
-    var pause = document.getElementsByClassName("ytp-play-button");
-    console.log(pause[0]);
-    pause[0].click();
+    // var vid = document.getElementsByTagName("body")
+    // console.log(vid[0])
+    // vid.innerHTML = ""
     var div1 = document.getElementById("movie_player");
-    div1.innerHTML = "";
+    if (div1 != null) {
+        div1.innerHTML = "";
+    }
     var image = document.createElement("img");
     image.setAttribute("src", "https://i.ibb.co/kDKq8SK/1.png");
     image.setAttribute("alt", "video is blocked");
-    div1.appendChild(image);
+
+    if (div1 != null) {
+        div1.appendChild(image);
+    }
     var div6 = document.getElementById("player-container-outer");
     var div7 = document.getElementById("meta"); // channel description page
     var div8 = document.getElementById("comments");
@@ -104,5 +109,7 @@ function blockVideo() {
     div9.innerHTML = "";
     div6.appendChild(image);
     console.log("emptied out all divs");
+    var e = new KeyboardEvent('keydown', { 'keyCode': 32, 'which': 32 });
+    document.dispatchEvent(e);
 
 }

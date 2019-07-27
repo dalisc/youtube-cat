@@ -120,6 +120,8 @@ function getCatName(fetchCatURL) {
                     }
                     chrome.tabs.query({}, function(tabs) {
                         for (var i = 0; i < tabs.length; i++) {
+                            console.log('muting');
+                            chrome.tabs.update(tabs.id, { "muted": true });
                             chrome.tabs.sendMessage(tabs[i].id, message, function(
                                 response
                             ) {
@@ -138,6 +140,8 @@ function getCatName(fetchCatURL) {
                     chrome.tabs.query({ active: true, currentWindow: true }, function(
                         tabs
                     ) {
+                        console.log('muting');
+                        chrome.tabs.update(tabs[0].id, { "muted": false });
                         chrome.tabs.sendMessage(
                             tabs[0].id, { todo: "refreshPageToUnblockVid" },
                             function(response) {
