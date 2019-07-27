@@ -21,12 +21,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, response) {
         getCatID(request.vidID);
         userForcedRefresh = true;
         response({ feedback: "redoing block" });
-    } else if (request.todo == "receivePurpose") {
-        console.log("receiving purpose");
-        var purpose = request.purpose;
-        response({ message: "done receive purpose" });
     }
-
 });
 
 chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
