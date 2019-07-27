@@ -43,8 +43,12 @@ class SignUp extends Component {
       })
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
-
-        this.props.changePage("LogIn");
+        this.setState({
+          error: {
+            message: "An email has been sent to authenticate your account"
+          }
+        });
+        // this.props.changePage("LogIn");
       })
       .catch(error => {
         this.setState({ error });

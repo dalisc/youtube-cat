@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Input, Button } from "reactstrap";
 import { FirebaseContext } from "./firebase";
 
-
 const INITIAL_STATE = {
   email: "",
   password: "",
@@ -34,8 +33,14 @@ class LogIn extends Component {
         firebase.firebase.auth
           .onAuthStateChanged(authUser => {
             console.log("going to welcome");
-            this.props.changeAuth(authUser);
-            this.props.changePage("Welcome");
+            if (authUser !== null && authUser.emailVerified) {
+              this.props.changeAuth(authUser);
+              this.props.changePage("Welcome");
+            } else if (authUser !== null && !authUser.emailVerified) {
+              this.setState({
+                error: { message: "Please authenticate your email first!" }
+              });
+            }
           })
           .catch(error => {
             console.log("inner errors: ", error);
@@ -83,8 +88,6 @@ class LogIn extends Component {
               Sign In
             </Button>
             {error && <p>{error.message}</p>}
-
-            
             <span
               className="linking"
               onClick={() => this.props.changePage("ForgotPassword")}
@@ -93,8 +96,7 @@ class LogIn extends Component {
             </span>
             <br />
             <br />
-            Don't have an account?{" "}
-            <br/>
+            Don't have an account? <br />
             <span
               className="linking"
               onClick={() => this.props.changePage("SignUp")}
