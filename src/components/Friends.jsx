@@ -125,7 +125,7 @@ class Friends extends Component {
         this.state.friendsList !== null &&
         this.state.friendsList.length > 0
           ? "Choose a friend and block their vids!"
-          : "Add friends! I am sure you have some!"}
+          : "Add friends! I'm sure you have some!"}
 
         <div className="friends-list">
           {this.renderFriendsList(this.props.firebase)}

@@ -149,6 +149,7 @@ class Welcome extends Component {
               </div>
 
               <br />
+              <div className="button-wrapper">
               <Button
                 className="submitPurpose"
                 onClick={() => this.handlePurposeSubmission(firebase)}
@@ -162,6 +163,7 @@ class Welcome extends Component {
               >
                 <span className="btnText"> SIGN OUT </span>
               </Button>
+              </div>
             </div>
           );
         }}
