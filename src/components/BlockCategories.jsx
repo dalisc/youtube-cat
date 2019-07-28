@@ -324,12 +324,12 @@ class BlockCategories extends Component {
               <div className="buttonwrapper">
                 <button
                   id="savePreferences"
-                  className="savePreferences"
+                  className="input-btn"
                   onClick={() =>
                     this.handleSavePreferences(this.props.firebase)
                   }
                 >
-                  Begin block!
+                  BEGIN BLOCK!
                 </button>
                 <br />
                 {this.state.message}

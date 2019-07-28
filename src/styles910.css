@@ -49,3 +49,10 @@
 .checkbox-group {
   text-align: left !important;
 }
+
+.input-btn {
+  color: #fff !important;
+  background-color: black !important;
+  border-color: black !important;
+  border-radius: 10px !important;
+}
