@@ -68,21 +68,21 @@ class BlockCategories extends Component {
       }
     }
 
-    // if (this.props.user.id === undefined) {
-    //   chrome.tabs.query(
-    //     {
-    //       active: true,
-    //       currentWindow: true
-    //     },
-    //     function(tabs) {
-    //       chrome.tabs.sendMessage(tabs[0].id, {
-    //         todo: "changePreferences",
-    //         categories: catArray
-    //       });
-    //       console.log("sending message about cats");
-    //     }
-    //   );
-    // }
+    if (this.props.user.id === undefined) {
+      chrome.tabs.query(
+        {
+          active: true,
+          currentWindow: true
+        },
+        function(tabs) {
+          chrome.tabs.sendMessage(tabs[0].id, {
+            todo: "changePreferences",
+            categories: catArray
+          });
+          console.log("sending message about cats");
+        }
+      );
+    }
 
     if (this.props.user.id === undefined) {
       //save data in local storage about self
