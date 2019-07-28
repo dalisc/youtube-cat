@@ -153,173 +153,176 @@ class BlockCategories extends Component {
                     type="checkbox"
                     value="-1"
                     id="selectAll"
+                    className="selectAll"
                     onClick={this.handleSelectAll}
                   />
                   Select all
                 </li>
                 <br />
-                <li>
-                  <input
-                    type="checkbox"
-                    value="0"
-                    name="Auto & Vehicles"
-                    className="enableKey"
-                  />
-                  Auto & Vehicles
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="1"
-                    name="Beauty & Fashion"
-                    className="enableKey"
-                  />
-                  Beauty & Fashion
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="2"
-                    name="Comedy"
-                    className="enableKey"
-                  />
-                  Comedy
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="3"
-                    name="Education"
-                    className="enableKey"
-                  />
-                  Education
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="4"
-                    name="Entertainment"
-                    className="enableKey"
-                  />
-                  Entertainment
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="5"
-                    name="Family Entertainment"
-                    className="enableKey"
-                  />
-                  Family Entertainment
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="6"
-                    name="Film & Animation"
-                    className="enableKey"
-                  />
-                  Film & Animation
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="7"
-                    name="Food"
-                    className="enableKey"
-                  />
-                  Food
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="8"
-                    name="Gaming"
-                    className="enableKey"
-                  />
-                  Gaming
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="9"
-                    name="Howto & Style"
-                    className="enableKey"
-                  />
-                  Howto & Style
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="10"
-                    name="Music"
-                    className="enableKey"
-                  />
-                  Music
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="11"
-                    name="News & Politics"
-                    className="enableKey"
-                  />
-                  News & Politics
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="12"
-                    name="Nonprofits & Activism"
-                    className="enableKey"
-                  />
-                  Nonprofits & Activism
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="13"
-                    name="People & Blogs"
-                    className="enableKey"
-                  />
-                  People & Blogs
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="14"
-                    name="Pets & Animals"
-                    className="enableKey"
-                  />
-                  Pets & Animals
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="15"
-                    name="Science & Technology"
-                    className="enableKey"
-                  />
-                  Science & Technology
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="16"
-                    name="Sports"
-                    className="enableKey"
-                  />
-                  Sports
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    value="17"
-                    name="Travel & Events"
-                    className="enableKey"
-                  />
-                  Travel & Events
-                </li>
+                <div className="scroll">
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="0"
+                      name="Auto & Vehicles"
+                      className="enableKey"
+                    />
+                    Auto & Vehicles
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="1"
+                      name="Beauty & Fashion"
+                      className="enableKey"
+                    />
+                    Beauty & Fashion
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="2"
+                      name="Comedy"
+                      className="enableKey"
+                    />
+                    Comedy
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="3"
+                      name="Education"
+                      className="enableKey"
+                    />
+                    Education
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="4"
+                      name="Entertainment"
+                      className="enableKey"
+                    />
+                    Entertainment
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="5"
+                      name="Family Entertainment"
+                      className="enableKey"
+                    />
+                    Family Entertainment
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="6"
+                      name="Film & Animation"
+                      className="enableKey"
+                    />
+                    Film & Animation
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="7"
+                      name="Food"
+                      className="enableKey"
+                    />
+                    Food
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="8"
+                      name="Gaming"
+                      className="enableKey"
+                    />
+                    Gaming
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="9"
+                      name="Howto & Style"
+                      className="enableKey"
+                    />
+                    Howto & Style
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="10"
+                      name="Music"
+                      className="enableKey"
+                    />
+                    Music
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="11"
+                      name="News & Politics"
+                      className="enableKey"
+                    />
+                    News & Politics
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="12"
+                      name="Nonprofits & Activism"
+                      className="enableKey"
+                    />
+                    Nonprofits & Activism
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="13"
+                      name="People & Blogs"
+                      className="enableKey"
+                    />
+                    People & Blogs
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="14"
+                      name="Pets & Animals"
+                      className="enableKey"
+                    />
+                    Pets & Animals
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="15"
+                      name="Science & Technology"
+                      className="enableKey"
+                    />
+                    Science & Technology
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="16"
+                      name="Sports"
+                      className="enableKey"
+                    />
+                    Sports
+                  </li>
+                  <li className="list_item">
+                    <input
+                      type="checkbox"
+                      value="17"
+                      name="Travel & Events"
+                      className="enableKey"
+                    />
+                    Travel & Events
+                  </li>
+                </div>
               </ul>
               <div className="buttonwrapper">
                 <button

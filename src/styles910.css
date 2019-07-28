@@ -43,9 +43,41 @@
   text-align: left !important;
 }
 
+.enableKey {
+  margin-right: 0.5rem;
+}
+
+.selectAll {
+  margin-right: 0.5rem;
+}
+
+.list_item {
+  margin-bottom: 0.5rem;
+}
+
 .input-btn {
   color: #fff !important;
   background-color: black !important;
   border-color: black !important;
   border-radius: 10px !important;
+}
+
+.scroll {
+  width: 200px;
+  height: 265px;
+  /* background: red; */
+  overflow: scroll;
+}
+.scroll::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(216, 216, 216, 0.3);
+  border-radius: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(145, 145, 145, 0.5);
 }
