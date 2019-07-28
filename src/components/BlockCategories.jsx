@@ -123,8 +123,10 @@ class BlockCategories extends Component {
     return (
       <>
         {this.state.isLoading ? (
-          <Spinner animation="border" role="status" />
-        ) : (
+          <div className="spinner-wrapper">
+          <Spinner animation="border" size="100" variant="danger" role="status" />
+          </div>
+          ) : (
           <div />
         )}
         <div className="container">

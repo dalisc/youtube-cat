@@ -77,8 +77,10 @@ class Welcome extends Component {
         {firebase => {
           this.fetchUserDetails(firebase);
           return this.state.isLoading ? (
-            <Spinner animation="border" role="status" />
-          ) : this.props.authUser === null ||
+            <div className="spinner-wrapper">
+            <Spinner animation="border" variant="danger" role="status" />
+            </div>
+            ) : this.props.authUser === null ||
             !this.props.authUser.emailVerified ? (
             <div>
               <p>Please check your email and verify it meow!</p>
