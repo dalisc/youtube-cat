@@ -64,9 +64,10 @@ class LogIn extends Component {
       <FirebaseContext.Consumer>
         {firebase => (
           <div className="container">
+            <div className="BigLogoContainer">
             <img className="catIcon" src={catIcon} />
             <h1 className="ytpcat">YouTube <span className="cat">Cat</span></h1>
-            
+            </div>
             <div className="input-wrapper">
             <Input
               className="input-text text"
@@ -99,13 +100,13 @@ class LogIn extends Component {
             <p className="question text">New to YouTube Cat? 
             <span
               className="linking text"
-              onClick={() => this.spanrops.changePage("SignUp")}
+              onClick={() => this.props.changePage("SignUp")}
               > Sign Up!
             </span>
             </p>
-            <p className="text">Forgot password?
+            <p className="question text">Forgot password?
             <span
-              className="question linking text"
+              className="linking text"
               onClick={() => this.props.changePage("ForgotPassword")}
               > Reset
             </span>

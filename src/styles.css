@@ -17,18 +17,20 @@ body {
 } */
 
 body {
-  width: 350px;
+    width: 22rem !important;
 }
 
 .backButton {
-  cursor: pointer;
-  margin-top: 1.5rem;
-  text-align: left !important;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    text-align: left !important;
 }
 
 .flexing {
-  display: flex;
+    display: flex;
 }
+
+
 /*
 .flex1 {
   flex: 1;

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Input, Button, Form, FormGroup } from "reactstrap";
+import "../css/style145.css"
+import catIcon from "../icons/icon256.png";
 
 class AddFriend extends Component {
   state = {
@@ -68,13 +70,13 @@ class AddFriend extends Component {
       if (alreadyFriend.length > 0) {
         this.setState({
           message:
-            "The user is already your friend!! Do you doubt your friendship meow?",
+            "This user is already your friend! Do you doubt your friendship meow?",
           friendEmail: ""
         });
       } else if (alreadyRequestReceived.length > 0) {
         this.setState({
           message:
-            "The user has already sent you a request! Go ahead and accept it! Start of a new friendship!",
+            "The user has already sent you a request! Go ahead and accept it!",
           friendEmail: ""
         });
       } else if (alreadyRequestSent.length > 0) {
@@ -92,7 +94,7 @@ class AddFriend extends Component {
             if (querySnapshot.docs.length < 1) {
               this.setState({
                 message:
-                  "Meow Meow. This user does not exist. Please check the email and try again",
+                  "CATastrophe! This user does not exist. Please check the email and try again.",
                 friendEmail: ""
               });
             } else {
@@ -125,7 +127,7 @@ class AddFriend extends Component {
 
                       this.setState(
                         {
-                          message: "Request sent"
+                          message: "Request sent."
                         },
                         () => {
                           firebase
@@ -164,7 +166,7 @@ class AddFriend extends Component {
                 } else {
                   this.setState({
                     message:
-                      "Request is already sent. Please be patient and purr"
+                      "Request is already sent. Please be patient and stay pawsitive."
                   });
                 }
                 this.setState({
@@ -185,26 +187,31 @@ class AddFriend extends Component {
 
   render() {
     return (
-      <div>
-        {" "}
-        <h2>Meow {this.props.username}</h2>
-        <h4>Add a friend!</h4>
+      <div className="container">
+        <div className="logoContainer">
+            <img src={catIcon} className="logoIcon" />
+            <h1 className="logoText">
+              Meow, <span className="logoText__cat">{this.props.username}!</span>
+            </h1>
+          </div>
+        <h4 className="oswald">Add a friend!</h4>
         <Form>
           <FormGroup>
             <Input
-              placeholder="email"
+              className="input-text"
+              placeholder="Email"
               type="email"
               onChange={e => this.handleFriendEmail(e)}
               value={this.state.friendEmail}
             />
 
             <Button
-              className=""
+              className="input-btn"
               onClick={() => this.handleAddFriend(this.props.firebase)}
             >
-              Add!
+              ADD
             </Button>
-            <div>{this.state.message}</div>
+            <div><p className="error">{this.state.message}</p></div>
           </FormGroup>
         </Form>
       </div>
