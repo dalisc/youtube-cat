@@ -128,11 +128,11 @@ class BlockCategories extends Component {
           <div />
         )}
         <div className="container">
-          <div className="bc__logoContainer">
-            <img src={catIcon} className="bc__logoIcon" />
-            <h1 className="bc__logoText">
+          <div className="logoContainer">
+            <img src={catIcon} className="logoIcon" />
+            <h1 className="logoText">
               Meow,{" "}
-              <span className="bc__logoText__cat">{this.props.username}</span>
+              <span className="logoText__cat">{this.props.username}!</span>
             </h1>
           </div>
           <div className="bc__toptext">
