@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css?family=Oswald:400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+.logoContainer {
+  margin-bottom: 1.5rem;
+  /* to center items of div */
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+.logoText {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: left;
+}
+
+.logoIcon {
+  margin-right: 0.9rem;
+  width: 4rem;
+}
+
+.logoText__cat {
+  color: #df2020 !important;
+}
+
+.block_vids_for {
+  font-family: "Oswald", sans-serif;
+  font-size: 2rem;
+}
+
+.myself_btn {
+  background: #df2020 !important;
+  border: 1px solid #df2020 !important;
+  width: 8rem;
+  margin-right: 1rem;
+}
+
+.friends_btn {
+  background: black !important;
+  border: 1px solid black !important;
+  width: 8rem;
+  margin-right: 1rem;
+}
+
+button[type="myself"]:focus,
+button[type="myself"]:active {
+  box-shadow: 0 0 0 1px #df2020 !important;
+  border: 1px solid #df2020 !important;
+}
+
+button[type="friends"]:focus,
+button[type="friends"]:active {
+  box-shadow: 0 0 0 1px black !important;
+  border: 1px solid black !important;
+}
+
+.purpose {
+  margin-top: 3rem;
+}
+
+.purposeQuestion {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.5rem;
+}
+
+input[type="purpose"] {
+  margin-top: 1rem !important;
+  border: none !important;
+  border-bottom: 2px solid rgb(151, 151, 151) !important;
+}
+
+input[type="purpose"]:focus {
+  border: none !important;
+  border-bottom: 2px solid black !important;
+  box-shadow: 0 0 0 0 !important;
+}
+
+.submitPurpose {
+  background: white !important;
+  color: rgb(105, 105, 105) !important;
+  border: 1px solid rgb(151, 151, 151) !important;
+  padding: 0.3rem !important;
+  margin-bottom: 2rem;
+}
+
+.btnText {
+  font-weight: bold;
+}

@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Oswald:400,500,600|Roboto&display=swap");
-
 .logoContainer {
   margin-bottom: 1.5rem;
   /* to center items of div */
@@ -64,10 +63,11 @@
 
 .scroll {
   width: 200px;
-  height: 265px;
+  height: 245px;
   /* background: red; */
   overflow: scroll;
 }
+
 .scroll::-webkit-scrollbar {
   width: 12px;
 }
@@ -80,4 +80,14 @@
 .scroll::-webkit-scrollbar-thumb {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(145, 145, 145, 0.5);
+}
+
+.block_cat_spinner {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.blockingMessage {
+  margin-bottom: 1rem;
+  font-weight: bold;
 }

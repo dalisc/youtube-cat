@@ -217,13 +217,13 @@ class AddFriend extends Component {
               onChange={e => this.handleFriendEmail(e)}
               value={this.state.friendEmail}
             />
-
+            <div className="button-wrapper">
             <Button
               className="input-btn"
               onClick={() => this.handleAddFriend(this.props.firebase)}
             >
               ADD
-            </Button>
+            </Button></div>
             <div><p className="error">{this.state.message}</p></div>
           </FormGroup>
         </Form>

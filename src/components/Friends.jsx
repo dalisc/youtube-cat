@@ -85,7 +85,9 @@ class Friends extends Component {
 
   renderFriendsList = firebase => {
     return this.state.isLoading ? (
-      <Spinner animation="border" role="status" />
+      <div className="spinner-wrapper">
+      <Spinner animation="border" variant="danger" role="status" />
+      </div>
     ) : this.state.friendsList !== undefined ? (
       this.state.friendsList.map(friend => (
         <div>

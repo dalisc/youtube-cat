@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Input, Button } from "reactstrap";
 import { FirebaseContext } from "./firebase";
 import catIcon from "../icons/icon256.png";
-import "../styles23.css";
+import "../css/styles23.css";
 
 const INITIAL_STATE = {
   username: "",
@@ -79,14 +79,14 @@ class SignUp extends Component {
               name="username"
               onChange={this.handleOnChange}
               value={username}
-              className="inputField"
+              className="input-text text"
             />
             <Input
               placeholder="Email"
               name="email"
               onChange={this.handleOnChange}
               value={email}
-              className="inputField"
+              className="input-text text"
             />
             <Input
               placeholder="Password"
@@ -94,7 +94,7 @@ class SignUp extends Component {
               type="password"
               onChange={this.handleOnChange}
               value={password}
-              className="inputField"
+              className="input-text text"
             />
             <Input
               placeholder="Retype Password"
@@ -102,27 +102,28 @@ class SignUp extends Component {
               type="password"
               onChange={this.handleOnChange}
               value={retypePassword}
-              className="inputField"
+              className="input-text text"
             />
-            <Button
-              className="signup"
-              disabled={isInvalid}
-              color="primary"
-              type="submit"
-              onClick={event => this.onSubmit({ firebase }, event)}
-              className="signUpButton"
-            >
-              SIGN UP
-            </Button>{" "}
+            <div className="button-wrapper">
+              <Button
+                className="input-btn"
+                disabled={isInvalid}
+                color="primary"
+                type="submit"
+                onClick={event => this.onSubmit({ firebase }, event)}
+              >
+                SIGN UP
+              </Button>{" "}
+            </div>
             <br />
-            {(error && <p>{error.message}</p> &&
+            {(error && <p className="error text">{error.message}</p> &&
               error.message ===
                 "An email verification has been sent to you!" && (
-                <p>
+                <p className="verify text">
                   A verification email has been sent to you. <br />
                   Please verify your email before{" "}
                   <span
-                    className="linking"
+                    className="linking text"
                     onClick={() => this.props.changePage("LogIn")}
                   >
                     signing in
@@ -134,14 +135,16 @@ class SignUp extends Component {
               error.message !==
                 "An email verification has been sent to you!") ||
               !error) && (
-              <div>
-                Already have an account? <br />
-                <span
-                  className="linking"
-                  onClick={() => this.props.changePage("LogIn")}
-                >
-                  Sign in!
-                </span>
+              <div className="bottom-text text">
+                <p className="question text">
+                  Already have an account? <br />
+                  <span
+                    className="linking text"
+                    onClick={() => this.props.changePage("LogIn")}
+                  >
+                    Sign in!
+                  </span>
+                </p>
               </div>
             )}
           </div>

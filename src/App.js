@@ -11,7 +11,7 @@ import { FirebaseContext } from "./components/firebase";
 import Friends from "./components/Friends";
 import { thisExpression } from "@babel/types";
 import FriendRequests from "./components/FriendRequests";
-import "./styles.css";
+import "./css/styles.css";
 
 class App extends Component {
   state = {

@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { Button, Input } from "reactstrap";
 import { FirebaseContext } from "./firebase";
 import Spinner from "react-bootstrap/Spinner";
+import catIcon from "../icons/icon256.png";
+import "../css/styles5.css";
 
 class Welcome extends Component {
   state = { purpose: "", username: "", isLoading: true, savedPurpose: null };
@@ -77,7 +79,15 @@ class Welcome extends Component {
         {firebase => {
           this.fetchUserDetails(firebase);
           return this.state.isLoading ? (
-            <Spinner animation="border" role="status" />
+            <div className="spinner-wrapper">
+              <Spinner
+                size="xl"
+                animation="border"
+                variant="danger"
+                role="status"
+                style={{ width: "4rem", height: "4rem" }}
+              />
+            </div>
           ) : this.props.authUser === null ||
             !this.props.authUser.emailVerified ? (
             <div>
@@ -92,48 +102,65 @@ class Welcome extends Component {
           ) : (
             <div>
               <p className="toptext">
-                Meow {this.state.username}! Click the button below and block to
-                your heart's content!
+                <div className="logoContainer">
+                  <img src={catIcon} className="logoIcon" />
+                  <h1 className="logoText">
+                    Meow,{" "}
+                    <span className="logoText__cat">
+                      {this.state.username}!
+                    </span>
+                  </h1>
+                </div>
+                <span className="block_vids_for">Block vids for?</span>
               </p>
               <br />
               <Button
-                className="block"
+                className="myself_btn"
                 color="primary"
                 onClick={() => this.props.changePage("BlockedCategories")}
+                type="myself"
               >
-                Block Categories
+                <span className="btnText">ME</span>
               </Button>
               <Button
-                className="Friends"
+                className="friends_btn"
                 color="primary"
                 onClick={() => this.props.changePage("Friends")}
+                type="friends"
               >
-                Friends
+                <span className="btnText">FRIENDS</span>
               </Button>
               <br />
-              <h3>Purpose</h3>
+              <div className="purpose">
+                <span className="purposeQuestion">
+                  What is your purpose today?
+                </span>
+                <Input
+                  type="purpose"
+                  placeholder={
+                    this.state.savedPurpose === undefined ||
+                    this.state.savedPurpose === null ||
+                    this.state.savedPurpose === ""
+                      ? "Purpose"
+                      : this.state.savedPurpose
+                  }
+                  onChange={e => this.handlePurpose(e)}
+                />
+              </div>
+
               <br />
-              {this.state.savedPurpose === undefined ||
-              this.state.savedPurpose === null
-                ? ""
-                : this.state.savedPurpose}
-              <br />
-              What is the one thing you want to focus on today?
-              <Input
-                placeholder="Purpose"
-                value={this.state.purpose}
-                onChange={e => this.handlePurpose(e)}
-              />
-              <br />
-              <Button onClick={() => this.handlePurposeSubmission(firebase)}>
-                Start a more meaningful life
+              <Button
+                className="submitPurpose"
+                onClick={() => this.handlePurposeSubmission(firebase)}
+              >
+                <span className="btnText"> Submit </span>
               </Button>
               <br />
               <Button
-                className="signout"
+                className="friends_btn"
                 onClick={() => this.handleSignOut(firebase)}
               >
-                Sign Out
+                <span className="btnText"> SIGN OUT </span>
               </Button>
             </div>
           );

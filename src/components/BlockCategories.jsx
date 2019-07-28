@@ -1,7 +1,7 @@
 /*global chrome*/
 import React, { Component } from "react";
 import Spinner from "react-bootstrap/Spinner";
-import "../styles910.css";
+import "../css/styles910.css";
 import catIcon from "../icons/icon256.png";
 
 class BlockCategories extends Component {
@@ -123,7 +123,14 @@ class BlockCategories extends Component {
     return (
       <>
         {this.state.isLoading ? (
-          <Spinner animation="border" role="status" />
+          <div className="block_cat_spinner">
+            <Spinner
+              animation="border"
+              size="lg"
+              variant="danger"
+              role="status"
+            />
+          </div>
         ) : (
           <div />
         )}
@@ -145,6 +152,7 @@ class BlockCategories extends Component {
             </span>
           </div>
           <br />
+          <div className="blockingMessage">{this.state.message}</div>
           <div className="row">
             <div className="checkbox-group">
               <ul className="bc__blockedcategories">
@@ -326,6 +334,7 @@ class BlockCategories extends Component {
               </ul>
               <div className="buttonwrapper">
                 <button
+                  type="submit"
                   id="savePreferences"
                   className="input-btn"
                   onClick={() =>
@@ -335,16 +344,12 @@ class BlockCategories extends Component {
                   BEGIN BLOCK!
                 </button>
                 <br />
-                {this.state.message}
               </div>
             </div>
           </div>
         </div>
       </>
     );
-    //   }}
-    // </FirebaseContext.Consumer>
-    // );
   }
 }
 
