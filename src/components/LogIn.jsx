@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Input, Button } from "reactstrap";
 import { FirebaseContext } from "./firebase";
+import "../css/style145.css"
+import catIcon from "../icons/icon256.png";
 
 const INITIAL_STATE = {
   email: "",
@@ -62,49 +64,53 @@ class LogIn extends Component {
       <FirebaseContext.Consumer>
         {firebase => (
           <div className="container">
-            <h1 className="toptext">Sign In</h1>
+            <img className="catIcon" src={catIcon} />
+            <h1 className="ytpcat">YouTube <span className="cat">Cat</span></h1>
+            
+            <div className="input-wrapper">
             <Input
-              className="signin-input"
+              className="input-text text"
               placeholder="Email"
               name="email"
               onChange={this.handleOnChange}
               value={email}
             />
             <Input
-              className="signin-input"
+              className="input-text text"
               placeholder="Password"
               name="password"
               type="password"
               onChange={this.handleOnChange}
               value={password}
             />
+            </div>
+            <div className="button-wrapper">
             <Button
-              className="signin"
+              className="input-btn text"
               disabled={isInvalid}
-              color="primary"
               type="submit"
               onClick={event => this.onSubmit({ firebase }, event)}
             >
-              Sign In
+              SIGN IN
             </Button>
-            {error && <p>{error.message}</p>}
+            </div>
+            {error && <p className="error text">{error.message}</p>}
+            <div className="bottom-text text">
+            <p className="question text">New to YouTube Cat? 
             <span
-              className="linking"
+              className="linking text"
+              onClick={() => this.spanrops.changePage("SignUp")}
+              > Sign Up!
+            </span>
+            </p>
+            <p className="text">Forgot password?
+            <span
+              className="question linking text"
               onClick={() => this.props.changePage("ForgotPassword")}
-            >
-              Forgot Password?
+              > Reset
             </span>
-            <br />
-            <br />
-            Don't have an account? <br />
-            <span
-              className="linking"
-              onClick={() => this.props.changePage("SignUp")}
-            >
-              Sign Up
-            </span>
-            <br />
-            <br />
+            </p>
+            </div>
           </div>
         )}
       </FirebaseContext.Consumer>
