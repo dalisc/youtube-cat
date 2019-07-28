@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css?family=Oswald:400,500,600|Roboto&display=swap");
+
+.bc__logoContainer {
+  margin-bottom: 1.5rem;
+
+  /* to center items of div */
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+.bc__logoText {
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  text-align: left;
+  font-size: 1.7rem;
+  /* margin-top: 0.5rem !important;
+  text-align: center !important;
+  font-family: "Oswald", sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 30px !important; */
+}
+
+.bc__logoIcon {
+  margin-right: 0.9rem;
+  width: 3rem;
+}
+
+.bc__logoText__cat {
+  color: #df2020;
+}
+
+.bc__toptext {
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.bc__toptext--red {
+  color: #df2020;
+  font-size: 1.5rem;
+}
+
+.bc__blockedcategories {
+  list-style: none;
+}
+
+.checkbox-group {
+  text-align: left !important;
+}

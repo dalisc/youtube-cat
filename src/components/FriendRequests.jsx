@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Button } from "reactstrap";
-import "../css/style67.css"
+import "../css/style67.css";
 import catIcon from "../icons/icon256.png";
-import Check from '@material-ui/icons/Check';
-import Close from '@material-ui/icons/Close';
+import Check from "@material-ui/icons/Check";
+import Close from "@material-ui/icons/Close";
 
 class FriendRequests extends Component {
   state = {
@@ -139,19 +139,20 @@ class FriendRequests extends Component {
   renderRequestsReceived = firebase => {
     return this.state.requestsReceived.map(friend => (
       <div>
-        <h6>{friend.username}
-        <span>
-        <Close
-          className="icon cancel"
-          color="danger"
-          onClick={() => this.rejectReceivedRequest(friend, firebase)}
-        />
-        <Check
-          className="icon accept"
-          color="success"
-          onClick={() => this.acceptReceivedRequest(friend, firebase)}
-        />
-        </span>
+        <h6>
+          {friend.username}
+          <span>
+            <Close
+              className="icon cancel"
+              color="danger"
+              onClick={() => this.rejectReceivedRequest(friend, firebase)}
+            />
+            <Check
+              className="icon accept"
+              color="success"
+              onClick={() => this.acceptReceivedRequest(friend, firebase)}
+            />
+          </span>
         </h6>
       </div>
     ));
@@ -198,13 +199,16 @@ class FriendRequests extends Component {
   renderRequestsSent = firebase => {
     return this.state.requestsSent.map(friend => (
       <div>
-        <h6>{friend.username}
-        <span className="inline-button">
-          <Close
-        className="icon cancel"
-          color="danger"
-          onClick={() => this.cancelSentRequest(friend, firebase)}
-        /></span></h6>
+        <h6>
+          {friend.username}
+          <span className="inline-button">
+            <Close
+              className="icon cancel"
+              color="danger"
+              onClick={() => this.cancelSentRequest(friend, firebase)}
+            />
+          </span>
+        </h6>
       </div>
     ));
   };
@@ -239,22 +243,22 @@ class FriendRequests extends Component {
     return (
       <div className="container">
         <div className="logoContainer">
-            <img src={catIcon} className="logoIcon" />
-            <h1 className="logoText">
-              Meow, <span className="logoText__cat">{this.props.username}!</span>
-            </h1>
-          </div>
+          <img src={catIcon} className="logoIcon" />
+          <h1 className="logoText">
+            Meow, <span className="logoText__cat">{this.props.username}!</span>
+          </h1>
+        </div>
         <h4 className="title oswald">FRIEND INVITATIONS</h4>
         <div className="friends-list">
-        {this.state.requestsReceived.length < 1
-          ? "No pending invitations."
-          : this.renderRequestsReceived(this.props.firebase)}
+          {this.state.requestsReceived.length < 1
+            ? "No pending invitations."
+            : this.renderRequestsReceived(this.props.firebase)}
         </div>
         <h4 className="title oswald">OUTGOING REQUESTS</h4>
         <div className="friends-list">
-        {this.state.requestsSent.length < 1
-          ? "No invitations sent."
-          : this.renderRequestsSent(this.props.firebase)}
+          {this.state.requestsSent.length < 1
+            ? "No invitations sent."
+            : this.renderRequestsSent(this.props.firebase)}
         </div>
       </div>
     );

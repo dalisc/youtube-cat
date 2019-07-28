@@ -134,19 +134,32 @@ class AddFriend extends Component {
                             .user(this.state.friendId)
                             .get()
                             .then(querySnapshot => {
+                              console.log(
+                                "query: ",
+                                querySnapshot.data().requests_received
+                              );
+
+                              const data =
+                                querySnapshot.data().requests_received ===
+                                undefined
+                                  ? []
+                                  : querySnapshot.data().requests_received;
+
+                              console.log("data: ", data);
+
                               this.setState(
                                 {
-                                  friendsPendingRequests:
-                                    querySnapshot.data().requests_received ===
-                                    undefined
-                                      ? []
-                                      : querySnapshot.data().requests_received
+                                  friendsPendingRequests: data
                                 },
                                 () => {
+                                  console.log(
+                                    "existing invitations: ",
+                                    this.state.friendPendingRequests
+                                  );
                                   firebase.user(this.state.friendId).set(
                                     {
                                       requests_received: [
-                                        ...this.state.friendPendingRequests,
+                                        ...data,
                                         {
                                           id: this.props.authUser.uid,
                                           email: this.props.authUser.email,

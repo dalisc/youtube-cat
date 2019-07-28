@@ -17,19 +17,21 @@ body {
 } */
 
 body {
-    width: 22rem !important;
+  /* width: 22rem; */
+  min-width: 350px;
+  max-width: 360px;
+  /* border: 2px solid black; */
 }
 
 .backButton {
-    cursor: pointer;
-    margin-top: 1.5rem;
-    text-align: left !important;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  text-align: left !important;
 }
 
 .flexing {
-    display: flex;
+  display: flex;
 }
-
 
 /*
 .flex1 {

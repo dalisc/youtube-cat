@@ -1,6 +1,8 @@
 /*global chrome*/
 import React, { Component } from "react";
 import Spinner from "react-bootstrap/Spinner";
+import "../styles910.css";
+import catIcon from "../icons/icon256.png";
 
 class BlockCategories extends Component {
   state = {
@@ -126,17 +128,26 @@ class BlockCategories extends Component {
           <div />
         )}
         <div className="container">
-          <h3 className="toptext">
-            Blocked categories for{" "}
-            {this.props.user.id === undefined
-              ? "myself"
-              : this.props.user.username}
-            :
-          </h3>
+          <div className="bc__logoContainer">
+            <img src={catIcon} className="bc__logoIcon" />
+            <h1 className="bc__logoText">
+              Meow,{" "}
+              <span className="bc__logoText__cat">{this.props.username}</span>
+            </h1>
+          </div>
+          <div className="bc__toptext">
+            Blocking for{" "}
+            <span className="bc__toptext--red">
+              {this.props.user.id === undefined
+                ? "myself"
+                : this.props.user.username}
+              :
+            </span>
+          </div>
           <br />
           <div className="row">
             <div className="checkbox-group">
-              <ul className="blockedcategories">
+              <ul className="bc__blockedcategories">
                 <li>
                   <input
                     type="checkbox"
