@@ -152,7 +152,7 @@ class BlockCategories extends Component {
             </span>
           </div>
           <br />
-          <div className="blockingMessage">{this.state.message}</div>
+
           <div className="row">
             <div className="checkbox-group">
               <ul className="bc__blockedcategories">
@@ -347,6 +347,7 @@ class BlockCategories extends Component {
               </div>
             </div>
           </div>
+          <div className="blockingMessage">{this.state.message}</div>
         </div>
       </>
     );

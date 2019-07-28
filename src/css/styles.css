@@ -20,7 +20,7 @@ body {
   /* width: 22rem; */
   min-width: 350px;
   max-width: 360px;
-  /* border: 2px solid black; */
+  border: 2px solid black;
 }
 
 .backButton {
