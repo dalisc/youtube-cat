@@ -155,7 +155,7 @@ class App extends Component {
                 firebase={firebase}
                 blockedCategoriesUser={this.handleBlockedCategoriesUser}
                 handleHelpFriend={this.handleHelpFriend}
-                username={this.state.username}
+                myself={this.state.username}
               />
             )}
           </FirebaseContext.Consumer>
@@ -170,7 +170,7 @@ class App extends Component {
                 authUser={this.state.authUser}
                 firebase={firebase}
                 blockedCategoriesUser={this.handleBlockedCategoriesUser}
-                username={this.state.username}
+                myself={this.state.username}
               />
             )}
           </FirebaseContext.Consumer>
@@ -185,7 +185,7 @@ class App extends Component {
                 authUser={this.state.authUser}
                 firebase={firebase}
                 blockedCategoriesUser={this.handleBlockedCategoriesUser}
-                username={this.state.username}
+                myself={this.state.username}
               />
             )}
           </FirebaseContext.Consumer>

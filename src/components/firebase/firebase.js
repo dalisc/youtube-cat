@@ -31,6 +31,7 @@ class Firebase {
             authUser = {
               uid: authUser.uid,
               email: authUser.email,
+              username: dbUser.username,
               emailVerified: authUser.emailVerified,
               providerData: authUser.providerData,
               ...dbUser

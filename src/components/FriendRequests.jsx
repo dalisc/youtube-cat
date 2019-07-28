@@ -15,20 +15,22 @@ class FriendRequests extends Component {
     friendId: "",
     friendPendingRequests: [],
     requestsSent: [],
-    requestsReceived: []
+    requestsReceived: [],
+    myself: this.props.myself
   };
 
   acceptReceivedRequest = (friend, firebase) => {
+    const data = [...this.state.friendsList, friend];
     // add this new friend to the existing list of friends locally and on firestore
     this.setState(
       {
-        friendsList: [...this.state.friendsList, friend]
+        friendsList: data
       },
       () => {
         console.log("friends list: ", this.state.friendsList);
         firebase.user(this.props.authUser.uid).set(
           {
-            friends: this.state.friendsList
+            friends: data
           },
           {
             merge: true
@@ -245,7 +247,7 @@ class FriendRequests extends Component {
         <div className="logoContainer">
           <img src={catIcon} className="logoIcon" />
           <h1 className="logoText">
-            Meow, <span className="logoText__cat">{this.props.username}!</span>
+            Meow, <span className="logoText__cat">{this.state.myself}!</span>
           </h1>
         </div>
         <h4 className="title oswald">FRIEND INVITATIONS</h4>

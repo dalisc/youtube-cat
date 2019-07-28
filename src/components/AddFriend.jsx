@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Input, Button, Form, FormGroup } from "reactstrap";
-import "../css/style145.css"
+import "../css/style145.css";
 import catIcon from "../icons/icon256.png";
 
 class AddFriend extends Component {
@@ -104,6 +104,7 @@ class AddFriend extends Component {
                     friend => friend.uid === doc.id
                   ).length === 0
                 ) {
+                  console.log("if 1: ", this.props.myself);
                   this.setState(
                     {
                       requestsSent: [
@@ -124,12 +125,16 @@ class AddFriend extends Component {
                         },
                         { merge: true }
                       );
-
+                      console.log(
+                        "before request sent message: ",
+                        this.props.myself
+                      );
                       this.setState(
                         {
                           message: "Request sent."
                         },
                         () => {
+                          console.log("after the message: ", this.props.myself);
                           firebase
                             .user(this.state.friendId)
                             .get()
@@ -146,6 +151,11 @@ class AddFriend extends Component {
                                   : querySnapshot.data().requests_received;
 
                               console.log("data: ", data);
+
+                              console.log(
+                                "before changing pending requests: ",
+                                this.props.myself
+                              );
 
                               this.setState(
                                 {
@@ -202,11 +212,11 @@ class AddFriend extends Component {
     return (
       <div className="container">
         <div className="logoContainer">
-            <img src={catIcon} className="logoIcon" />
-            <h1 className="logoText">
-              Meow, <span className="logoText__cat">{this.props.username}!</span>
-            </h1>
-          </div>
+          <img src={catIcon} className="logoIcon" />
+          <h1 className="logoText">
+            Meow, <span className="logoText__cat">{this.state.username}!</span>
+          </h1>
+        </div>
         <h4 className="oswald">Add a friend!</h4>
         <Form>
           <FormGroup>
@@ -218,13 +228,16 @@ class AddFriend extends Component {
               value={this.state.friendEmail}
             />
             <div className="button-wrapper">
-            <Button
-              className="input-btn"
-              onClick={() => this.handleAddFriend(this.props.firebase)}
-            >
-              ADD
-            </Button></div>
-            <div><p className="error">{this.state.message}</p></div>
+              <Button
+                className="input-btn"
+                onClick={() => this.handleAddFriend(this.props.firebase)}
+              >
+                ADD
+              </Button>
+            </div>
+            <div>
+              <p className="error">{this.state.message}</p>
+            </div>
           </FormGroup>
         </Form>
       </div>
