@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import "../css/styles910.css";
 import catIcon from "../icons/icon256.png";
+import { Button } from "reactstrap";
 
 class BlockCategories extends Component {
   state = {
@@ -67,21 +68,21 @@ class BlockCategories extends Component {
       }
     }
 
-    if (this.props.user.id === undefined) {
-      chrome.tabs.query(
-        {
-          active: true,
-          currentWindow: true
-        },
-        function(tabs) {
-          chrome.tabs.sendMessage(tabs[0].id, {
-            todo: "changePreferences",
-            categories: catArray
-          });
-          console.log("sending message about cats");
-        }
-      );
-    }
+    // if (this.props.user.id === undefined) {
+    //   chrome.tabs.query(
+    //     {
+    //       active: true,
+    //       currentWindow: true
+    //     },
+    //     function(tabs) {
+    //       chrome.tabs.sendMessage(tabs[0].id, {
+    //         todo: "changePreferences",
+    //         categories: catArray
+    //       });
+    //       console.log("sending message about cats");
+    //     }
+    //   );
+    // }
 
     if (this.props.user.id === undefined) {
       //save data in local storage about self
@@ -332,22 +333,24 @@ class BlockCategories extends Component {
                   </li>
                 </div>
               </ul>
+              <div className="blockingMessage">{this.state.message}</div>
               <div className="buttonwrapper">
-                <button
-                  type="submit"
+                <Button
+                  type="block"
+                  color="primary"
                   id="savePreferences"
-                  className="input-btn"
+                  className="input-btn-block"
                   onClick={() =>
                     this.handleSavePreferences(this.props.firebase)
                   }
                 >
                   BEGIN BLOCK!
-                </button>
+                </Button>{" "}
+                <br />
                 <br />
               </div>
             </div>
           </div>
-          <div className="blockingMessage">{this.state.message}</div>
         </div>
       </>
     );

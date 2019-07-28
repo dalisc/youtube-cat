@@ -54,11 +54,13 @@
   margin-bottom: 0.5rem;
 }
 
-.input-btn {
+.input-btn-block {
   color: #fff !important;
-  background-color: black !important;
-  border-color: black !important;
+  background-color: #df2020 !important;
+  border-color: #df2020 !important;
   border-radius: 10px !important;
+  box-shadow: 0 0 0 0px #df2020 !important;
+  padding: 0.5rem;
 }
 
 .scroll {
@@ -88,6 +90,22 @@
 }
 
 .blockingMessage {
-  margin-bottom: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   font-weight: bold;
+  text-align: center;
+}
+
+.buttonwrapper {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  height: 10%;
+  justify-content: center;
+}
+
+button[type="block"]:focus,
+button[type="block"]:active {
+  box-shadow: 0 0 0 1px #df2020 !important;
+  border: 1px solid #df2020 !important;
 }
