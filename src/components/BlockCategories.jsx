@@ -18,6 +18,10 @@ class BlockCategories extends Component {
         : this.props.user.id;
 
     console.log("user for blocking: ", userId);
+    console.log("user", this.props.user);
+    this.props.buttonSetting(
+      this.props.user.id === undefined ? "myself" : "friend"
+    );
     this.setState({
       userId
     });
@@ -61,19 +65,21 @@ class BlockCategories extends Component {
       }
     }
 
-    chrome.tabs.query(
-      {
-        active: true,
-        currentWindow: true
-      },
-      function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {
-          todo: "changePreferences",
-          categories: catArray
-        });
-        console.log("sending message about cats");
-      }
-    );
+    if (this.props.user.id === undefined) {
+      chrome.tabs.query(
+        {
+          active: true,
+          currentWindow: true
+        },
+        function(tabs) {
+          chrome.tabs.sendMessage(tabs[0].id, {
+            todo: "changePreferences",
+            categories: catArray
+          });
+          console.log("sending message about cats");
+        }
+      );
+    }
 
     if (this.props.user.id === undefined) {
       //save data in local storage about self
@@ -120,7 +126,13 @@ class BlockCategories extends Component {
           <div />
         )}
         <div className="container">
-          <h3 className="toptext">Blocked categories:</h3>
+          <h3 className="toptext">
+            Blocked categories for{" "}
+            {this.props.user.id === undefined
+              ? "myself"
+              : this.props.user.username}
+            :
+          </h3>
           <br />
           <div className="row">
             <div className="checkbox-group">
