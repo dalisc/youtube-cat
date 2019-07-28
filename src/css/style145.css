@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css?family=Oswald:400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+.container {
+    margin-top: 1rem !important;
+}
+
+.catIcon {
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 50% !important;
+}
+
+.logoContainer {
+    margin-bottom: 1.5rem;
+    /* to center items of div */
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+}
+
+.logoText {
+    font-family: "Oswald", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: left;
+}
+
+.logoIcon {
+    margin-right: 0.9rem;
+    width: 4rem;
+}
+
+.logoText__cat {
+    color: #df2020 !important;
+}
+
+.ytpcat {
+    margin-top: 0.5rem !important;
+    text-align: center !important;
+    font-family: "Oswald", sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 30px !important;
+}
+
+.cat {
+    color: #df2020 !important;
+}
+
+.input-wrapper {
+    text-align: center !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.input-text {
+    text-align: center !important;
+    margin: 1rem !important;
+    font-size: 0.8rem !important;
+    border-radius: 10px !important;
+    display: block !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+
+.button-wrapper {
+    text-align: center !important;
+}
+
+.input-btn {
+    color: #fff !important;
+    background-color: black !important;
+    border-color: black !important;
+    border-radius: 10px !important;
+}
+
+.bottom-text {
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+    text-align: center !important;
+}
+
+.linking {
+    color: #df2020 !important;
+    font-weight: bold !important;
+}
+
+.text {
+    font-family: "Roboto", sans-serif !important;
+}
+
+.oswald {
+    font-family: "Oswald", sans-serif !important;
+}
+
+.question,
+.error,
+.verify {
+    text-align: center !important;
+    font-size: 1rem !important;
+}
+
+.error {
+    margin-top: 1rem !important;
+    color: #df2020 !important;
+}
+
+p {
+    margin: 0 !important;
+}
+
+input[type=text]:focus,
+input[type=password]:focus {
+    box-shadow: 0 0 0 3px rgb(209, 209, 209) !important;
+    border: 1px solid rgb(151, 151, 151) !important;
+}

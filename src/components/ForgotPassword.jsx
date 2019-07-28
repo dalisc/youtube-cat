@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Input, Button } from "reactstrap";
 import { FirebaseContext } from "./firebase";
+import "../css/style145.css"
+import catIcon from "../icons/icon256.png";
 
 const INITIAL_STATE = {
   email: "",
@@ -47,30 +49,44 @@ class ForgotPassword extends Component {
       <FirebaseContext.Consumer>
         {firebase => (
           <div className="container">
-            <h1 className="toptext">Reset Password</h1>
-
+            <img className="catIcon" src={catIcon} />
+            <h1 className="ytpcat">YouTube <span className="cat">Cat</span></h1>
+            
+            <div className="inputWrapper">
             <Input
               placeholder="Email"
+              className="input-text text"
               name="email"
               onChange={this.handleOnChange}
               value={email}
             />
+            </div>
 
+            <div className="button-wrapper">
             <Button
-              className="resetpass"
+              className="input-btn text"
               disabled={isInvalid}
-              color="primary"
               type="submit"
               onClick={event => this.onSubmit({ firebase }, event)}
             >
-              Send email to reset
+              RESET PASSWORD
             </Button>
-            {error && <p>{error.message}</p>}
+            </div>
+            {error && <p className="error text">{error.message}</p>}
             {resetEmailSent && (
               <div>
-                <p>{"An email has been sent to reset your password"}</p>
+                <p className="verify text">{"An email has been sent to reset your password"}</p>
               </div>
             )}
+                        <div className="bottom-text text">
+            <p className="question text">Remembered your password? 
+            <span
+              className="linking text"
+              onClick={() => this.props.changePage("LogIn")}
+              > Sign In!
+            </span>
+            </p>
+            </div>
           </div>
         )}
       </FirebaseContext.Consumer>

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Input, Button, Form, FormGroup } from "reactstrap";
 import Spinner from "react-bootstrap/Spinner";
+import "../css/style67.css"
+import catIcon from "../icons/icon256.png";
 
 class Friends extends Component {
   state = {
@@ -87,16 +89,9 @@ class Friends extends Component {
     ) : this.state.friendsList !== undefined ? (
       this.state.friendsList.map(friend => (
         <div>
-          <h6 onClick={() => this.props.handleHelpFriend(friend)}>
+          <h6 className="friend oswald" onClick={() => this.props.handleHelpFriend(friend)}>
             {friend.username}
           </h6>
-
-          <Button
-            color="danger"
-            onClick={() => this.handleRemoveFriend(friend, firebase)}
-          >
-            X
-          </Button>
         </div>
       ))
     ) : (
@@ -107,12 +102,23 @@ class Friends extends Component {
   render() {
     return (
       <div className="container">
-        <h2>Meow {this.props.username}</h2>
-        <h3 className="toptext">Friends</h3>
+        <div className="logoContainer">
+            <img src={catIcon} className="logoIcon" />
+            <h1 className="logoText">
+              Meow, <span className="logoText__cat">{this.props.username}!</span>
+            </h1>
+          </div>
+        <h3 className="title oswald">FRIENDS</h3>
         Choose a friend and block their vids!
+        <div className="friends-list">
         {this.renderFriendsList(this.props.firebase)}
-        <Button onClick={() => this.props.changePage("AddFriend")}>ADD</Button>
-        <Button onClick={() => this.props.changePage("FriendRequests")}>
+        </div>
+        <Button 
+        className="input-btn"
+        onClick={() => this.props.changePage("AddFriend")}>ADD FRIENDS</Button>
+        <Button 
+        className="input-btn"
+        onClick={() => this.props.changePage("FriendRequests")}>
           INVITES
         </Button>
       </div>

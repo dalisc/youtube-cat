@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css?family=Oswald:400,500,600|Roboto&display=swap");
+
+.logoContainer {
+  margin-bottom: 1.5rem;
+  /* to center items of div */
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+.logoText {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: left;
+}
+
+.logoIcon {
+  margin-right: 0.9rem;
+  width: 4rem;
+}
+
+.logoText__cat {
+  color: #df2020 !important;
+}
+
+.bc__toptext {
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.bc__toptext--red {
+  color: #df2020;
+  font-size: 1.5rem;
+}
+
+.bc__blockedcategories {
+  list-style: none;
+}
+
+.checkbox-group {
+  text-align: left !important;
+}
+
+.enableKey {
+  margin-right: 0.5rem;
+}
+
+.selectAll {
+  margin-right: 0.5rem;
+}
+
+.list_item {
+  margin-bottom: 0.5rem;
+}
+
+.input-btn {
+  color: #fff !important;
+  background-color: black !important;
+  border-color: black !important;
+  border-radius: 10px !important;
+}
+
+.scroll {
+  width: 200px;
+  height: 265px;
+  /* background: red; */
+  overflow: scroll;
+}
+.scroll::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(216, 216, 216, 0.3);
+  border-radius: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(145, 145, 145, 0.5);
+}
