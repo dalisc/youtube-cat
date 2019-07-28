@@ -63,7 +63,7 @@
 
 .scroll {
   width: 200px;
-  height: 265px;
+  height: 245px;
   /* background: red; */
   overflow: scroll;
 }
@@ -85,4 +85,9 @@
 .block_cat_spinner {
   margin-top: 1rem;
   text-align: center;
+}
+
+.blockingMessage {
+  margin-bottom: 1rem;
+  font-weight: bold;
 }

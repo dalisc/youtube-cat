@@ -152,6 +152,7 @@ class BlockCategories extends Component {
             </span>
           </div>
           <br />
+          <div className="blockingMessage">{this.state.message}</div>
           <div className="row">
             <div className="checkbox-group">
               <ul className="bc__blockedcategories">
@@ -333,6 +334,7 @@ class BlockCategories extends Component {
               </ul>
               <div className="buttonwrapper">
                 <button
+                  type="submit"
                   id="savePreferences"
                   className="input-btn"
                   onClick={() =>
@@ -342,16 +344,12 @@ class BlockCategories extends Component {
                   BEGIN BLOCK!
                 </button>
                 <br />
-                {this.state.message}
               </div>
             </div>
           </div>
         </div>
       </>
     );
-    //   }}
-    // </FirebaseContext.Consumer>
-    // );
   }
 }
 
