@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css?family=Oswald:400,500,600|Roboto&display=swap");
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.logoContainer {
+  margin-bottom: 1.5rem;
+
+  /* to center items of div */
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+.logoText {
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  text-align: left;
+}
+
+.logoIcon {
+  margin-right: 0.9rem;
+  width: 4rem;
+}
+
+.logoText__cat {
+  color: #df2020;
+}
+
+.inputField {
+  margin-bottom: 1rem;
+  border-radius: 10px !important;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.signUpButton {
+  color: #fff;
+  background-color: black !important;
+  border-color: black !important;
+  margin: 1rem;
+  font-family: "Roboto", sans-serif;
+  border-radius: 10px !important;
+}
+
+button[type="submit"]:focus,
+button[type="submit"]:active {
+  box-shadow: 0 0 0 1px rgb(48, 48, 48) !important;
+  border: 1px solid rgb(36, 36, 36) !important;
+}
+
+.linking {
+  color: #df2020;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  box-shadow: 0 0 0 3px rgb(209, 209, 209) !important;
+  border: 1px solid rgb(151, 151, 151) !important;
+}

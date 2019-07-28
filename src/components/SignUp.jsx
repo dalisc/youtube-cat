@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Input, Button } from "reactstrap";
 import { FirebaseContext } from "./firebase";
+import catIcon from "../icons/icon256.png";
+import "../styles23.css";
 
 const INITIAL_STATE = {
   username: "",
@@ -45,7 +47,7 @@ class SignUp extends Component {
         this.setState({ ...INITIAL_STATE });
         this.setState({
           error: {
-            message: "An email has been sent to authenticate your account"
+            message: "An email verification has been sent to you!"
           }
         });
         // this.props.changePage("LogIn");
@@ -66,18 +68,25 @@ class SignUp extends Component {
       <FirebaseContext.Consumer>
         {firebase => (
           <div className="container">
-            <h1 className="toptext">Sign Up</h1>
+            <div className="logoContainer">
+              <img src={catIcon} className="logoIcon" />
+              <h1 className="logoText">
+                YouTube <span className="logoText__cat">Cat</span>
+              </h1>
+            </div>
             <Input
               placeholder="Username"
               name="username"
               onChange={this.handleOnChange}
               value={username}
+              className="inputField"
             />
             <Input
               placeholder="Email"
               name="email"
               onChange={this.handleOnChange}
               value={email}
+              className="inputField"
             />
             <Input
               placeholder="Password"
@@ -85,6 +94,7 @@ class SignUp extends Component {
               type="password"
               onChange={this.handleOnChange}
               value={password}
+              className="inputField"
             />
             <Input
               placeholder="Retype Password"
@@ -92,6 +102,7 @@ class SignUp extends Component {
               type="password"
               onChange={this.handleOnChange}
               value={retypePassword}
+              className="inputField"
             />
             <Button
               className="signup"
@@ -99,18 +110,40 @@ class SignUp extends Component {
               color="primary"
               type="submit"
               onClick={event => this.onSubmit({ firebase }, event)}
+              className="signUpButton"
             >
-              Sign Up
+              SIGN UP
             </Button>{" "}
             <br />
-            {error && <p>{error.message}</p>}
-            Already have an account? <br />
-            <span
-              className="linking"
-              onClick={() => this.props.changePage("LogIn")}
-            >
-              Sign in
-            </span>
+            {(error && <p>{error.message}</p> &&
+              error.message ===
+                "An email verification has been sent to you!" && (
+                <p>
+                  A verification email has been sent to you. <br />
+                  Please verify your email before{" "}
+                  <span
+                    className="linking"
+                    onClick={() => this.props.changePage("LogIn")}
+                  >
+                    signing in
+                  </span>
+                </p>
+              )) ||
+              (error && error.message)}
+            {((error &&
+              error.message !==
+                "An email verification has been sent to you!") ||
+              !error) && (
+              <div>
+                Already have an account? <br />
+                <span
+                  className="linking"
+                  onClick={() => this.props.changePage("LogIn")}
+                >
+                  Sign in!
+                </span>
+              </div>
+            )}
           </div>
         )}
       </FirebaseContext.Consumer>
