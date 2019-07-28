@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { Input, Button } from "reactstrap";
 import { FirebaseContext } from "./firebase";
 import catIcon from "../icons/icon256.png";
-// import "../styles23.css";
-import "../css/style145.css"
+import "../css/styles23.css";
 
 const INITIAL_STATE = {
   username: "",
@@ -106,15 +105,15 @@ class SignUp extends Component {
               className="input-text text"
             />
             <div className="button-wrapper">
-            <Button
-              className="input-btn"
-              disabled={isInvalid}
-              color="primary"
-              type="submit"
-              onClick={event => this.onSubmit({ firebase }, event)}
-            >
-              SIGN UP
-            </Button>{" "}
+              <Button
+                className="input-btn"
+                disabled={isInvalid}
+                color="primary"
+                type="submit"
+                onClick={event => this.onSubmit({ firebase }, event)}
+              >
+                SIGN UP
+              </Button>{" "}
             </div>
             <br />
             {(error && <p className="error text">{error.message}</p> &&
@@ -137,13 +136,15 @@ class SignUp extends Component {
                 "An email verification has been sent to you!") ||
               !error) && (
               <div className="bottom-text text">
-                <p className="question text">Already have an account? <br />
-                <span
-                  className="linking text"
-                  onClick={() => this.props.changePage("LogIn")}
-                >
-                  Sign in!
-                </span></p>
+                <p className="question text">
+                  Already have an account? <br />
+                  <span
+                    className="linking text"
+                    onClick={() => this.props.changePage("LogIn")}
+                  >
+                    Sign in!
+                  </span>
+                </p>
               </div>
             )}
           </div>

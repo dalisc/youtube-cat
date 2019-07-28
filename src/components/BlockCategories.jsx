@@ -1,7 +1,7 @@
 /*global chrome*/
 import React, { Component } from "react";
 import Spinner from "react-bootstrap/Spinner";
-import "../styles910.css";
+import "../css/styles910.css";
 import catIcon from "../icons/icon256.png";
 
 class BlockCategories extends Component {
@@ -123,10 +123,15 @@ class BlockCategories extends Component {
     return (
       <>
         {this.state.isLoading ? (
-          <div className="spinner-wrapper">
-          <Spinner animation="border" size="100" variant="danger" role="status" />
+          <div className="block_cat_spinner">
+            <Spinner
+              animation="border"
+              size="lg"
+              variant="danger"
+              role="status"
+            />
           </div>
-          ) : (
+        ) : (
           <div />
         )}
         <div className="container">

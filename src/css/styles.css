@@ -1,0 +1,91 @@
+/* @import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+body {
+  min-width: 300px;
+  margin-top: 2rem;
+  height: auto;
+  font-family: "Roboto", sans-serif;
+}
+
+.blockedcategories {
+  list-style: none;
+}
+
+/* .linking {
+  cursor: pointer;
+  color: blue;
+} */
+
+body {
+  /* width: 22rem; */
+  min-width: 350px;
+  max-width: 360px;
+  /* border: 2px solid black; */
+}
+
+.backButton {
+  cursor: pointer;
+  margin-top: 1.5rem;
+  text-align: left !important;
+}
+
+.flexing {
+  display: flex;
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.flex2 {
+  flex: 15;
+}
+
+/*
+.signin {
+margin: 10px;
+}
+
+.signup {
+margin: 10px;
+}
+
+.signout {
+margin: 30px;
+}
+
+.resetpass {
+margin: 10px;
+}
+
+.block {
+margin: 30px;
+background-color: green;
+}
+
+.toptext {
+margin-top: 10px;
+max-width: 300px;
+}
+
+.bottomtext {
+margin-top: 10px;
+}
+
+.savePreferences {
+background-color: #c1200f;
+border: none;
+border-radius: 5px;
+color: white;
+padding: 10px 20px;
+text-align: center;
+text-decoration: none;
+float: center;
+font-size: 16px;
+margin: 4px 2px;
+cursor: pointer;
+}
+
+.buttonwrapper {
+text-align: center;
+} */
